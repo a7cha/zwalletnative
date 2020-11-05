@@ -42,7 +42,7 @@ export default StyleSheet.create({
         paddingBottom : hp(6)        
     },
     formInputEmail : {
-        width : 350,
+        width : wp(90),
         height : 50,
         borderTopColor : 'white',
         borderRightColor : 'white',
@@ -124,6 +124,5 @@ export default StyleSheet.create({
     signUpButton : {
         marginTop : wp(5),
         color : '#6379F4'
-    }
-    
+    },
 })

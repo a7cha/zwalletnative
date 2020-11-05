@@ -6,18 +6,21 @@
  * @flow strict-local
  */
 import 'react-native-gesture-handler'
-import React,{Fragment} from 'react';
+import React from 'react';
 import {
   Text,
   View
 } from 'react-native';
-import Login from './src/screen/auth/login'
+import {NavigationContainer} from '@react-navigation/native'
+import AuthRouter from './src/navigator'
+import { Provider as PaperProvider  } from 'react-native-paper'
+
 
 const App = () => {
   return (
-    <Fragment>
-        <Login />
-    </Fragment>
+    <PaperProvider>
+        <AuthRouter />
+    </PaperProvider>
   );
 };
 

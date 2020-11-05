@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import {Button, Text} from 'react-native-paper'	
 import styles from './login.style.js'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const Login = (props) => {
 	const inputPassword = useRef()
@@ -17,8 +18,11 @@ const Login = (props) => {
 
 	const onSubmit = () => {
 		props.navigation.navigate('Home');
-
 	};
+
+	const toRegister = () => {
+		props.navigation.navigate('RegisterForm')
+	}
 
 	return(
 		<Fragment>
@@ -33,17 +37,24 @@ const Login = (props) => {
 							<Text style={styles.formDesc}>Login to your existing account to access all the features in Zwallet.</Text>
 						</View>
 						<View style={styles.positionCenter}>
-							<TextInput 
-								style={email != '' ? styles.formInputEmailFilled : styles.formInputEmail}
-								placeholder='Masukkan Email'
-								autoCapitalize={'none'}
-								value={email}
-								onChangeText={(text) => setEmail(text)}
-								onSubmitEditing={() => inputPassword.current.focus()}
-								returnKeyType="next"
-							/>
+							<View>
+
+								<View>
+																
+								<TextInput 
+									style={email != '' ? styles.formInputEmailFilled : styles.formInputEmail}
+									placeholder='Masukkan Email'
+									autoCapitalize={'none'}
+									value={email}
+									onChangeText={(text) => setEmail(text)}
+									onSubmitEditing={() => inputPassword.current.focus()}
+									returnKeyType="next"
+								/>
+								</View>
+							</View>
 						</View>
 						<View style={styles.positionCenter}>
+							
 							<TextInput 
 								ref={inputPassword}
 								style={password != '' ? styles.formInputPasswordFilled : styles.formInputPassword}
@@ -59,6 +70,9 @@ const Login = (props) => {
 							
 						</View>
 
+							
+
+
 						<View style={styles.positionEnd}>
 							<Text style={styles.forgotPassword}>Forgot password?</Text>
 						</View>
@@ -71,7 +85,7 @@ const Login = (props) => {
 
 						<View style={styles.col12}>
 							<Text style={styles.textUnderButton}>Don’t have an account? Let’s </Text>
-							<TouchableNativeFeedback>
+							<TouchableNativeFeedback onPress={() => toRegister()}>
 								<Text style={styles.signUpButton}>
 									Sign Up
 								</Text>
