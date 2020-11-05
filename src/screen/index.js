@@ -1,7 +1,8 @@
-import {Login, RegisterForm} from './auth'
+import {Login, RegisterForm, RegisterPin} from './auth'
 
 
 export {
 	Login,
-	RegisterForm
+	RegisterForm,
+	RegisterPin
 }

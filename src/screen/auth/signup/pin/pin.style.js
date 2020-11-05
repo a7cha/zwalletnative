@@ -17,12 +17,13 @@ export default StyleSheet.create({
     },
     bodyBackground : {
         backgroundColor : '#E5E5E5',
+
     }, 
     formBoxLogin:{
         backgroundColor : 'white',
         borderTopLeftRadius : 20,
         borderTopRightRadius : 20,
-        height : hp('84%'),
+        height : hp('75%'),
         width : wp('100%')
     },
     formTitle : {
@@ -38,8 +39,7 @@ export default StyleSheet.create({
         fontSize : fp(3),
         textAlign : "center",
         color: 'rgba(58, 61, 66, 0.6)',
-        marginLeft : wp(10),
-        marginRight : wp(10),
+        marginHorizontal : wp(4),
         paddingBottom : hp(6)        
     },
     formInputEmail : {
@@ -98,7 +98,7 @@ export default StyleSheet.create({
     },
     buttonSubmit : {
         backgroundColor : '#DADADA',
-        marginTop : hp(5),
+        marginTop : hp(6),
         padding: 7,
         width : wp(90),
         borderRadius : 12
@@ -109,7 +109,7 @@ export default StyleSheet.create({
     },
     buttonSubmitFilled : {
         backgroundColor : '#6379F4',
-        marginTop : hp(5),
+        marginTop : hp(6),
         padding: 7,
         width : wp(90),
         borderRadius : 12  
@@ -128,4 +128,7 @@ export default StyleSheet.create({
         marginTop : wp(5),
         color : '#6379F4'
     },
+    pincodePosition : {
+        alignItems : 'center',
+    }
 })

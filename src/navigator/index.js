@@ -1,7 +1,7 @@
 import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
-import {Login, RegisterForm} from '../screen'
+import {Login, RegisterForm, RegisterPin} from '../screen'
 import {isLogin} from '../utils'
 
 
@@ -23,7 +23,13 @@ const Router = () => {
 				component={RegisterForm} 
 				options={{ headerShown: false }}
 			/>
-			
+
+			<Stack.Screen 
+				name='RegisterPin' 
+				component={RegisterPin} 
+				options={{ headerShown: false }}
+			/>
+
 		</Stack.Navigator>
     </NavigationContainer>	
 	)

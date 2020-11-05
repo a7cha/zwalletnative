@@ -10,10 +10,11 @@ import {Button, Text} from 'react-native-paper'
 import styles from './login.style.js'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+
 const Login = (props) => {
 	const inputPassword = useRef()
-	const [email, setEmail]	= useState(null);
-	const [password, setPassword] = useState(null);
+	const [email, setEmail]	= useState('');
+	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	const onSubmit = () => {
@@ -31,7 +32,7 @@ const Login = (props) => {
 					<View>
 						<Text style={styles.zwalletIcon}> Zwallet</Text>
 					</View>
-					<View style={styles.formBox}> 
+					<View style={styles.formBoxLogin}> 
 						<View style={styles.positionCenter}>
 							<Text style={styles.formTitle}>Login</Text>
 							<Text style={styles.formDesc}>Login to your existing account to access all the features in Zwallet.</Text>
