@@ -3,7 +3,8 @@ import {
 	ScrollView,
 	View,
 	TextInput,
-	ToastAndroid
+	ToastAndroid,
+	TouchableNativeFeedback
 } from 'react-native'
 import {Button, Text} from 'react-native-paper'	
 import styles from './login.style.js'
@@ -33,7 +34,7 @@ const Login = (props) => {
 						</View>
 						<View style={styles.positionCenter}>
 							<TextInput 
-								style={styles.formInputEmail}
+								style={email != '' ? styles.formInputEmailFilled : styles.formInputEmail}
 								placeholder='Masukkan Email'
 								autoCapitalize={'none'}
 								value={email}
@@ -45,7 +46,7 @@ const Login = (props) => {
 						<View style={styles.positionCenter}>
 							<TextInput 
 								ref={inputPassword}
-								style={styles.formInputPassword}
+								style={password != '' ? styles.formInputPasswordFilled : styles.formInputPassword}
 								placeholder='Masukkan Password'
 								autoCapitalize={'none'}
 								value={password}
@@ -57,8 +58,24 @@ const Login = (props) => {
 							/>
 							
 						</View>
-						<View>
-							<Text>Forgot password?</Text>
+
+						<View style={styles.positionEnd}>
+							<Text style={styles.forgotPassword}>Forgot password?</Text>
+						</View>
+
+						<View style={styles.positionCenter}>
+							<Button style={email && password != '' ? styles.buttonSubmitFilled : styles.buttonSubmit}>
+								<Text style={email && password != '' ? styles.textButtonLoginFilled : styles.textButtonLogin}> Login</Text>
+							</Button>
+						</View>						
+
+						<View style={styles.col12}>
+							<Text style={styles.textUnderButton}>Don’t have an account? Let’s </Text>
+							<TouchableNativeFeedback>
+								<Text style={styles.signUpButton}>
+									Sign Up
+								</Text>
+							</TouchableNativeFeedback>
 						</View>
 					</View>
 				</View>

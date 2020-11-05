@@ -11,7 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Login from './src/auth/login/index'
+import Login from './src/screen/auth/login'
 
 const App = () => {
   return (
