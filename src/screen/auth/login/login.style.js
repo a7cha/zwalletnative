@@ -16,7 +16,7 @@ export default StyleSheet.create({
         alignItems : 'center'
     },
     bodyBackground : {
-        backgroundColor : '#E5E5E5',
+        backgroundColor : '#FAFCFF',
     }, 
     formBoxLogin:{
         backgroundColor : 'white',
