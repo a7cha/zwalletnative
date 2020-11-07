@@ -31,53 +31,71 @@ const Notification = (props) => {
 	return(
 		<Fragment>
 			<ScrollView style={styles.bodyBackground}>				
-				<MobileNav thisnavigate={() => toDashboard()} pageTitle='Ini Notif'/>				
+				<MobileNav thisnavigate={() => toDashboard()} pageTitle='Notification'/>				
 				<View style={styles.container}>
 
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
 								<View style={styles.profileStatus}>
 									<TouchableNativeFeedback>
-										<TopupIcons/>
+										<Icon name='arrow-down' size={30} color={'#4CEDB3'}/>
 									</TouchableNativeFeedback>
 
 			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.vcAccount}>Virtual Account Number</Text>
-										<Text style={styles.vcNumber}>2389 081393877946</Text>
+										<Text style={styles.vcAccount}>Transfered from Joshua Lee</Text>
+										<Text style={styles.vcNumber}>Rp220.000</Text>
 									</View>			
 								</View>							
 							</View>							
 						</View>		
 
-					<View>
-						<Text style={styles.formDesc}>We provide you virtual account number for top up via nearest ATM.</Text>
-					</View>
-										
-					<View style={styles.likeRowTwo}>						
-							<Text style={styles.contact}>How to Top-Up</Text> 							
-					</View>
 
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
-								<View style={styles.topupStat}>
-										<Text style={styles.topupNumber}>1</Text>
+								<View style={styles.profileStatus}>
+									<TouchableNativeFeedback>
+										<Icon name='arrow-down' size={30} color={'#4CEDB3'}/>
+									</TouchableNativeFeedback>
+
 			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.topupText}>Go to the nearest ATM or you can use E-Banking.</Text>
+										<Text style={styles.vcAccount}>Transfered from Joshua Lee</Text>
+										<Text style={styles.vcNumber}>Rp220.000</Text>
 									</View>			
 								</View>							
 							</View>							
-						</View>														
+						</View>		
+
 
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
-								<View style={styles.topupStat}>
-										<Text style={styles.topupNumber}>1</Text>
+								<View style={styles.profileStatus}>
+									<TouchableNativeFeedback>
+										<Icon name='arrow-down' size={30} color={'#4CEDB3'}/>
+									</TouchableNativeFeedback>
+
 			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.topupText}>Go to the nearest ATM or you can use E-Banking.</Text>
+										<Text style={styles.vcAccount}>Transfered from Joshua Lee</Text>
+										<Text style={styles.vcNumber}>Rp220.000</Text>
 									</View>			
 								</View>							
 							</View>							
 						</View>							
+
+						<View style={styles.dashboardPanelist}>
+							<View style={styles.spaceBetween}>
+								<View style={styles.profileStatus}>
+									<TouchableNativeFeedback>
+										<Icon name='arrow-down' size={30} color={'#4CEDB3'}/>
+									</TouchableNativeFeedback>
+
+			 						<View style={styles.profileNameNavbarSection}>
+										<Text style={styles.vcAccount}>Transfered from Joshua Lee</Text>
+										<Text style={styles.vcNumber}>Rp220.000</Text>
+									</View>			
+								</View>							
+							</View>							
+						</View>								
+					
 
 
 
