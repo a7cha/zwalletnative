@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 const Router = () => {
 	return(
 	<NavigationContainer>		
-		<Stack.Navigator initialRouteName="Topup">
+		<Stack.Navigator initialRouteName="Notification">
 
 			<Stack.Screen 
 				name='Login' 
