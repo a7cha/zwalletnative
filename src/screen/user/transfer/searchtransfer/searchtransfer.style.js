@@ -155,6 +155,50 @@ export default StyleSheet.create({
 		fontSize : fp(3),
 		justifyContent : 'center',
 		flexDirection : 'column'
+	},
+	inputSearchTransfer	: {
+    padding: 3,
+    borderColor: '#333',
+    marginVertical: 5,
+    borderRadius: 12,
+    backgroundColor : 'rgba(58, 61, 66, 0.1)'		
+	},
+	contact : {
+		marginTop : hp(4),
+		marginBottom : hp(1),
+		fontFamily : 'NunitoSans-Bold',		
+		fontSize : fp(3),
+		color : '#514F5B'		
+	},
+	countContact : {
+		fontFamily : 'NunitoSans-Light',		
+		fontSize : fp(3),
+		color : '#7A7886'
+	},
+	quickAccessRow : {
+	    flex: 1,
+	    flexDirection: 'row',	
+	},
+	quickPanelist : {
+		backgroundColor : 'white',
+		height : hp(24),
+		width : wp(25),
+		borderRadius : 10,
+        marginBottom : hp(2),			
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
+		shadowOpacity: 0.20,
+		shadowRadius: 0.5,
+
+		elevation: 0.5, 				
+	},
+	quickAccessPos : {
+		flexDirection : 'column',
+		marginLeft : wp(4.4),
+		marginTop : hp(1.5)	
 	}
 
 })

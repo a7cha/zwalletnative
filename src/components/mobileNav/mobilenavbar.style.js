@@ -8,7 +8,6 @@ export default StyleSheet.create({
 		borderBottomLeftRadius : 20,
 		height : hp(15),
         width : wp(100),
-        marginBottom : hp(2)
 
 	},
 	profileNameNavbarSection : {
@@ -20,7 +19,7 @@ export default StyleSheet.create({
 		flexDirection :  'row',
 	},
 	navbarSection : {
-		marginHorizontal : 5
+		marginHorizontal : 1
 	},
 	spaceBetween : {
 		justifyContent: 'space-between',
@@ -33,7 +32,6 @@ export default StyleSheet.create({
 	},
 	helloText : {
 		fontSize : fp(3.5),
-		marginBottom : 4,
 		fontFamily : 'NunitoSans-Light'
 	},
 	profileNameNavbar : {

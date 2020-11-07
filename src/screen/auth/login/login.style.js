@@ -137,4 +137,5 @@ export default StyleSheet.create({
         marginTop : wp(5),
         color : '#6379F4'
     },
+
 })

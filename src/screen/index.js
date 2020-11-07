@@ -1,5 +1,21 @@
-import {Login, RegisterForm, RegisterPin, PinStatus, FormForgotPassword,ResetPassword} from './auth'
-import {UserDashboard, TransactionHistory} from './user'
+import {	Login, 
+			RegisterForm, 
+			RegisterPin, 
+			PinStatus, 
+			FormForgotPassword,
+			ResetPassword 	
+		} from './auth'
+
+import {	UserDashboard, 
+			TransactionHistory,
+			SearchTransfer, 
+			AmountBank,
+			ConfirmTransfer, 
+			PinTransfer, 
+			TransferStatus, 
+			Topup,
+			Notification	
+		} from './user'
 
 
 export {
@@ -10,5 +26,12 @@ export {
 	FormForgotPassword,
 	ResetPassword,
 	UserDashboard,
-	TransactionHistory
+	TransactionHistory,
+	SearchTransfer,
+	AmountBank,
+	ConfirmTransfer,
+	PinTransfer,
+	TransferStatus,
+	Topup,
+	Notification
 }

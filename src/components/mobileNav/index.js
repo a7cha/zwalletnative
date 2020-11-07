@@ -15,9 +15,7 @@ import {ExampleProfile} from '../../assets/resources/illustration'
 const MobileNav = (props) => {
 	const {thisnavigate, pageTitle} = props
 
-	const toBack = () => {
-		props.navigation.navigate(thisnavigate)
-	}
+
 	return(
 			<View style={styles.navbarBackground}>
 

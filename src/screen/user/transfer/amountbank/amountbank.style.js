@@ -155,6 +155,88 @@ export default StyleSheet.create({
 		fontSize : fp(3),
 		justifyContent : 'center',
 		flexDirection : 'column'
-	}
+	},
+	inputSearchTransfer	: {
+    padding: 3,
+    borderColor: '#333',
+    marginVertical: 5,
+    borderRadius: 12,
+    backgroundColor : 'rgba(58, 61, 66, 0.1)'		
+	},
+	contact : {
+		marginTop : hp(4),
+		marginBottom : hp(1),
+		fontFamily : 'NunitoSans-Bold',		
+		fontSize : fp(3),
+		color : '#514F5B'		
+	},
+	countContact : {
+		fontFamily : 'NunitoSans-Light',		
+		fontSize : fp(3),
+		color : '#7A7886'
+	},
+	quickAccessRow : {
+	    flex: 1,
+	    flexDirection: 'row',	
+	},
+	quickPanelist : {
+		backgroundColor : 'white',
+		height : hp(24),
+		width : wp(25),
+		borderRadius : 10,
+        marginBottom : hp(2),			
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
+		shadowOpacity: 0.20,
+		shadowRadius: 0.5,
+
+		elevation: 0.5, 				
+	},
+	quickAccessPos : {
+		flexDirection : 'column',
+		marginLeft : wp(4.4),
+		marginTop : hp(1.5)	
+	},
+	positionCenter : {
+		alignItems : 'center'
+	},
+    formInputEmail : {
+        width : wp(90),
+        height : 50,
+        borderTopColor : 'white',
+        borderRightColor : 'white',
+        borderLeftColor : 'white',
+        borderBottomColor : 'rgba(169, 169, 169, 0.6)',
+        borderWidth : 1,
+        borderRadius : 5,
+        marginVertical : 5,
+    },
+    formInputEmailFilled : {
+        width : 350,
+        height : 50,
+        borderTopColor : 'white',
+        borderRightColor : 'white',
+        borderLeftColor : 'white',
+        borderBottomColor : '#6379F4',
+        borderWidth : 1,
+        borderRadius : 5,
+        marginVertical : 5,
+    },	
+    moneyAvailable : {
+        fontFamily : 'NunitoSans-Regular',
+        color: '#7C7895',
+        fontSize : fp(3)
+    },
+    AmounInput : {
+    	color : '#6379F4',
+    	fontSize : fp(7),
+    	fontFamily : 'NunitoSans-SemiBold',
+    	maxWidth : wp(90),
+    	
+    	textAlign : 'center'
+    }
 
 })

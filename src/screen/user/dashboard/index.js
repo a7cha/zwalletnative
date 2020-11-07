@@ -18,7 +18,7 @@ const UserDashboard = (props) => {
 	const [historyData, setHistoryData] = useState([])
 
 	const toTransfer = () => {
-		props.navigation.navigate('TransferUser')
+		props.navigation.navigate('SearchTransfer')
 	}
 
 	const toTransactionHistory = () => {
@@ -26,7 +26,7 @@ const UserDashboard = (props) => {
 	}
 
 	const toTopup = () => {
-		props.navigation.navigate('TopupUser')
+		props.navigation.navigate('Topup')
 	}
 
 	const toTransactionDetail = () => {
