@@ -17,12 +17,9 @@ const RegisterPin = (props) => {
 	const [pincode, setPincode] = useState('');
 	const [loading, setLoading] = useState(false);
 
-	const onSubmit = () => {
-		props.navigation.navigate('Home');
-	};
 
-	const toRegister = () => {
-		props.navigation.navigate('RegisterForm');
+	const toPinStatus = () => {
+		props.navigation.navigate('PinStatus');
 	};
 
 	return (
@@ -56,6 +53,7 @@ const RegisterPin = (props) => {
 								}}
 								value={pincode}
 								onTextChange={(code) => setPincode(code)}
+								onSubmitEditing  ={() => toPinStatus()}
 							/>
 						</View>
 
@@ -65,16 +63,18 @@ const RegisterPin = (props) => {
 									pincode.length == 6
 										? styles.buttonSubmitFilled
 										: styles.buttonSubmit
-								}>
-								<Text
-									style={
-										pincode.length == 6
-											? styles.textButtonLoginFilled
-											: styles.textButtonLogin
-									}>
-									{' '}
-									Confirm
-								</Text>
+								}
+								onPress={() => toPinStatus()}
+							>
+							<Text
+								style={
+									pincode.length == 6
+										? styles.textButtonLoginFilled
+										: styles.textButtonLogin
+								}
+							>
+							Confirm
+							</Text>
 							</Button>
 						</View>
 					</View>

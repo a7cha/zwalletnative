@@ -23,7 +23,15 @@ export default StyleSheet.create({
         borderTopLeftRadius : 20,
         borderTopRightRadius : 20,
         height : hp('84%'),
-        width : wp('100%')
+        width : wp('100%'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+        elevation: 11,        
     },
     formTitle : {
         paddingTop : hp('9%'),
@@ -40,7 +48,8 @@ export default StyleSheet.create({
         color: 'rgba(58, 61, 66, 0.6)',
         marginLeft : wp(10),
         marginRight : wp(10),
-        paddingBottom : hp(6)        
+        paddingBottom : hp(6),
+        lineHeight : 28          
     },
     formInputEmail : {
         width : wp(90),

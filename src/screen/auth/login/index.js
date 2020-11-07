@@ -25,6 +25,10 @@ const Login = (props) => {
 		props.navigation.navigate('RegisterForm')
 	}
 
+	const toForgotPassword = () => {
+		props.navigation.navigate('FormForgotPassword')
+	}
+
 	return(
 		<Fragment>
 			<ScrollView style={styles.bodyBackground}>
@@ -75,7 +79,9 @@ const Login = (props) => {
 
 
 						<View style={styles.positionEnd}>
-							<Text style={styles.forgotPassword}>Forgot password?</Text>
+							<TouchableNativeFeedback onPress={() => toForgotPassword()}>
+								<Text style={styles.forgotPassword}>Forgot password?</Text>
+							</TouchableNativeFeedback>
 						</View>
 
 						<View style={styles.positionCenter}>
