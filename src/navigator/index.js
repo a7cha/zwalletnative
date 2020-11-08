@@ -15,23 +15,39 @@ import { 	Login,
 			PinTransfer,
 			TransferStatus,
 			Topup,
-			Notification
+			Notification,
+			ProfileMenu
 		} from '../screen'
 import {isLogin} from '../utils'
+import {useSelector} from 'react-redux'
 
 
 const Stack = createStackNavigator();
 
 const Router = () => {
+  const Auth = useSelector((s)=> s.Auth)	
 	return(
 	<NavigationContainer>		
-		<Stack.Navigator initialRouteName="Notification">
+		<Stack.Navigator>
+			{Auth.data.token ? (
+
+			<Stack.Screen 
+				name='UserDashboard' 
+				component={UserDashboard} 
+				options={{ headerShown: false }}
+			/>
+			
+			): (
 
 			<Stack.Screen 
 				name='Login' 
 				component={Login} 
 				options={{ headerShown: false }}
-			/>
+			/>			
+
+			)
+			}
+
 
 			<Stack.Screen 
 				name='RegisterForm' 
@@ -44,6 +60,7 @@ const Router = () => {
 				component={RegisterPin} 
 				options={{ headerShown: false }}
 			/>
+
 
 			<Stack.Screen 
 				name='PinStatus' 
@@ -63,11 +80,7 @@ const Router = () => {
 				options={{ headerShown: false }}
 			/>
 
-			<Stack.Screen 
-				name='UserDashboard' 
-				component={UserDashboard} 
-				options={{ headerShown: false }}
-			/>
+
 
 			<Stack.Screen 
 				name='TransactionHistory' 
@@ -116,6 +129,12 @@ const Router = () => {
 				component={Notification} 
 				options={{ headerShown: false }}
 			/>											
+
+			<Stack.Screen 
+				name='ProfileMenu' 
+				component={ProfileMenu} 
+				options={{ headerShown: false }}
+			/>			
 
 		</Stack.Navigator>
     </NavigationContainer>	

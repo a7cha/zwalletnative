@@ -7,8 +7,7 @@ export default StyleSheet.create({
 		backgroundColor : '#FAFCFF',
 	},
 	container : {
-		marginHorizontal : wp(5),
-		marginVertical : hp(5)		
+		marginHorizontal : wp(5),	
 	},
 	balanceBox : {
 		backgroundColor : '#6379F4',
@@ -46,8 +45,7 @@ export default StyleSheet.create({
 	likeRowTwo : {
 	    flex: 1,
 	    flexDirection: 'row',	
-	    marginTop : hp(4),
-	    marginBottom : hp(4),
+	    marginBottom : hp(1),
 	    justifyContent : 'space-between',
 	    marginHorizontal :10
 	},
@@ -82,9 +80,9 @@ export default StyleSheet.create({
 	},
 	dashboardPanelist : {
 		backgroundColor : 'white',
-		height : hp(17),
-		borderRadius : 10,
-        marginBottom : hp(1),			
+		height : hp(12),
+		borderRadius : 16,
+        marginBottom : hp(3),			
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
@@ -98,7 +96,7 @@ export default StyleSheet.create({
 	spaceBetween : {
 		justifyContent: 'space-between',
 		flexDirection : 'row',
-		marginHorizontal : wp(7),
+		marginHorizontal : wp(2),
 		marginVertical : hp(3)
 	},
 	profileNameNavbarSection : {
@@ -126,12 +124,55 @@ export default StyleSheet.create({
 		color : '#1EC15F',
 		fontSize : fp(4)
 	},
-	moneyMinus : {
-		marginTop : hp(2),
-		fontFamily : 'NunitoSans-SemiBold',
+	paginationBorder : {
+		fontFamily : 'NunitoSans-Light',		
+		fontSize : fp(3.5),
+		color : '#7A7886'
+	},
+	sortingMoney : {
+        backgroundColor : '#DADADA',
+        height : hp(10),
+        width : wp(8),
+        borderRadius : 12,
+        marginHorizontal: 7, 
+	},
+	filterByDateButton : {
+        backgroundColor : '#DADADA',
+        height : hp(10),
+        width : wp(47),
+        borderRadius : 12,
+        marginHorizontal: 7, 	
+        marginTop : hp(4)		
+	},
+	likeRowSorting : {
+	    flex: 1,
+	    flexDirection: 'row',	
+	    marginTop : hp(4)		
+	},
+	FilterByDateText : {
+		color: '#6379F4',
+		fontFamily: 'NunitoSans-Bold',
+		fontSize : fp(3),
+		justifyContent : 'center',
+		flexDirection : 'column'
+	},
+	profileSubmenu : {
+		color : '#4D4B57',
+		fontFamily: 'NunitoSans-Regular',
+		fontSize : fp(3),
+		marginTop : hp(0.5)		
+	},
+	profileMenuIcon : {
+		marginBottom : hp(3)
+	},
+	positionCenter : {
+		marginHorizontal : wp(35),
+		marginVertical : hp(4)
+	},
+	logoutButton : {
+		fontFamily: 'NunitoSans-Bold',
 		color : '#FF5B37',
-		fontSize : fp(4)
-	}
-
+		fontSize : fp(3),
+	}	
 
 })

@@ -1,27 +1,57 @@
-import React,{useState, Fragment} from 'react'
+import React,{useState, Fragment, useEffect} from 'react'
 import {
 	View,
 	ScrollView,
 	Image,
 	Touchable,
 	TextInput,
-	TouchableNativeFeedback
+	TouchableNativeFeedback,
+	
 } from 'react-native'
 
 import styles from './transactionhistory.style.js'
 import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
+import Axios from 'axios';
+import {useSelector} from 'react-redux'
 
 const TransactionHistory = (props) => {
-	const [profileData, setProfileData] = useState([])
+	const [userData, setUserData] = useState([])
 	const [historyData, setHistoryData] = useState([])
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
 	}
 
+	const Auth = useSelector((s)=> s.Auth)
 
+    useEffect(() => {           
+    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
+	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
+	        .then(res =>{
+	        
+	        	setUserData(res.data.data[0])
+
+	        
+	          console.log('ini data did history: ', userData)
+	        }).catch(err => {
+	          console.log('data transfer axios error: ', err.message)
+	        });
+
+	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user/home', headers )
+	        .then(res =>{
+	        
+	        	setHistoryData(res.data.data.data)
+
+	        
+	          console.log('ini history data: ', historyData)
+	        }).catch(err => {
+	          console.log('data transfer axios error: ', err.message)
+	        });	        
+
+
+	        }, [])	
 
 
 	return(
@@ -37,73 +67,34 @@ const TransactionHistory = (props) => {
 				</View>
 					<View styles={styles.flexColumn}>
 
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.profileStatus}>
-									<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
-											style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.profileName}>Samuel Suhi</Text>
-										<Text style={styles.transactionStatus}>Transfer</Text>
-									</View>			
-								</View>
+						{ historyData.map(history =>{
+							return(
+									<View style={styles.dashboardPanelist}>
+										<View style={styles.spaceBetween}>
+											<View style={styles.profileStatus}>
+												<Image source={{uri: history.img}} 
+														style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+						 						<View style={styles.profileNameNavbarSection}>
+													<Text style={styles.profileName}>{history.receiveBy}</Text>
+													<Text style={styles.transactionStatus}>{history.status}</Text>
+												</View>			
+											</View>
 
-								<View>
-									<Text style={styles.moneyPlus}>+Rp.1231</Text>
-								</View>											
-							</View>							
-						</View>
+											<View>
+												{ history.sendBy == userData.id ? (
+													<Text style={styles.moneyMinus}>-Rp.{history.amountTransfer}</Text>
+												) : (
+													<Text style={styles.moneyPlus}>+Rp.{history.amountTransfer}</Text>
+												)
+												
+												}
+											</View>											
+										</View>							
+									</View>
+							)
+						})
 
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.profileStatus}>
-									<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
-											style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.profileName}>Samuel Suhi</Text>
-										<Text style={styles.transactionStatus}>Transfer</Text>
-									</View>			
-								</View>
-
-								<View>
-									<Text style={styles.moneyPlus}>+Rp.1231</Text>
-								</View>											
-							</View>							
-						</View>
-										
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.profileStatus}>
-									<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
-											style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.profileName}>Samuel Suhi</Text>
-										<Text style={styles.transactionStatus}>Transfer</Text>
-									</View>			
-								</View>
-
-								<View>
-									<Text style={styles.moneyPlus}>+Rp.1231</Text>
-								</View>											
-							</View>							
-						</View>
-
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.profileStatus}>
-									<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
-											style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.profileName}>Samuel Suhi</Text>
-										<Text style={styles.transactionStatus}>Transfer</Text>
-									</View>			
-								</View>
-
-								<View>
-									<Text style={styles.moneyPlus}>+Rp.1231</Text>
-								</View>											
-							</View>							
-						</View>							
+						}
 
 					</View>
 

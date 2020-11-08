@@ -7,6 +7,7 @@ import PinTransfer from './transfer/pintransfer'
 import TransferStatus from './transfer/transferstatus'
 import Topup from './topup'
 import Notification from './notification'
+import {ProfileMenu} from './profile'
 
 export {
 	UserDashboard,
@@ -17,5 +18,6 @@ export {
 	PinTransfer,
 	TransferStatus,
 	Topup,
-	Notification
+	Notification,
+	ProfileMenu
 }

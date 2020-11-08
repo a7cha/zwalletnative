@@ -1,4 +1,4 @@
-import React,{useState, Fragment} from 'react'
+import React,{useState, Fragment,useEffect} from 'react'
 import {
 	View,
 	ScrollView,
@@ -13,11 +13,12 @@ import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
 import {TopupIcons} from '../../../assets/resources'
+import axios from 'axios';
 
 
 const Topup = (props) => {
 	const [profileData, setProfileData] = useState([])
-	const [historyData, setHistoryData] = useState([])
+	const [topup, setTopup] = useState([])
 	const [pincode, setPincode] = useState('')
 
 
@@ -25,6 +26,21 @@ const Topup = (props) => {
 		props.navigation.navigate('UserDashboard')
 	}
 
+
+    useEffect(() => {           
+	        axios.get('http://192.168.1.10:7000/zwallet/api/v1/topup/all')
+	        .then(res =>{
+	        
+	        	setTopup(res.data.data)
+
+	        
+	          console.log('ini data topup: ', topup)
+	        }).catch(err => {
+	          console.log('data transfer axios error: ', err.message)
+	        });       
+
+
+	        }, [])
 
 
 
@@ -57,27 +73,25 @@ const Topup = (props) => {
 							<Text style={styles.contact}>How to Top-Up</Text> 							
 					</View>
 
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.topupStat}>
-										<Text style={styles.topupNumber}>1</Text>
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.topupText}>Go to the nearest ATM or you can use E-Banking.</Text>
-									</View>			
+					{ topup.map( topup => {
+						return(
+							<View style={styles.dashboardPanelist}>
+								<View style={styles.spaceBetween}>
+									<View style={styles.topupStat}>
+											<Text style={styles.topupNumber}>{topup.stepNumber}</Text>
+				 						<View style={styles.profileNameNavbarSection}>
+											<Text style={styles.topupText}>{topup.instruction}</Text>
+										</View>			
+									</View>							
 								</View>							
-							</View>							
-						</View>														
+							</View>		
+						)
+					})
 
-						<View style={styles.dashboardPanelist}>
-							<View style={styles.spaceBetween}>
-								<View style={styles.topupStat}>
-										<Text style={styles.topupNumber}>1</Text>
-			 						<View style={styles.profileNameNavbarSection}>
-										<Text style={styles.topupText}>Go to the nearest ATM or you can use E-Banking.</Text>
-									</View>			
-								</View>							
-							</View>							
-						</View>							
+					}
+												
+
+					
 
 
 

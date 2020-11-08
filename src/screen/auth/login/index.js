@@ -9,16 +9,25 @@ import {
 import {Button, Text} from 'react-native-paper'	
 import styles from './login.style.js'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useDispatch } from 'react-redux';
+import {AuthLogin} from '../../../redux/actions/Auth'
 
 
 const Login = (props) => {
 	const inputPassword = useRef()
-	const [email, setEmail]	= useState('');
-	const [password, setPassword] = useState('');
+	const [email, setEmail]	= useState(null);
+	const [password, setPassword] = useState(null);
 	const [loading, setLoading] = useState(false);
-
+	const dispatch = useDispatch()
 	const onSubmit = () => {
-		props.navigation.navigate('Home');
+		setLoading(true);
+		dispatch(
+	      AuthLogin({
+	        email: email,
+	        password: password,
+	      })
+		)
+		console.log('clicked')
 	};
 
 	const toRegister = () => {

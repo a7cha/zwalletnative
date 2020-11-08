@@ -13,18 +13,46 @@ import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import axios from 'axios';
+import {useSelector} from 'react-redux'
 
 const PinTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
 	const [historyData, setHistoryData] = useState([])
 	const [pincode, setPincode] = useState('')
 
+	const Auth = useSelector((s)=> s.Auth)
+
 	const toAmountBank = () => {
-		props.navigation.navigate('AmountBank')
+		props.navigation.navigate('ConfirmTransfer')
 	}
 
+	let {amount, notes, itemId, photo, phoneNumber, fullName, time,status, balanceLeft} = props.route.params
+
+
 	const toTransferStatus = () => {
-		props.navigation.navigate('TransferStatus')
+
+		let data = {
+			receiver : parseInt(itemId),
+			status : status,
+			amountTransfer : amount,
+			note : notes,
+			balanceLeft : balanceLeft,
+			pin : parseInt(pincode)		
+		}
+
+    	const headers = { headers: {'Authorization': Auth.data.token.token}}		
+        axios.post('http://192.168.1.10:7000/zwallet/api/v1/transaction/',data,headers)
+             .then(res => {
+                props.navigation.navigate('TransferStatus',{amount : amount, notes : notes, itemId : itemId, photo : photo, phoneNumber : phoneNumber, fullName : fullName, time : time, status : 'transfer', balanceLeft : balanceLeft })
+
+                console.log('berhasil')
+             })
+             .catch(err => {
+                console.log('ini salah',err)
+        })		
+
+		
 	}
 
 
@@ -56,7 +84,7 @@ const PinTransfer = (props) => {
 								}}
 								value={pincode}
 								onTextChange={(code) => setPincode(code)}
-								onSubmitEditing  ={() => toPinStatus()}
+								onSubmitEditing  ={() => toTransferStatus()}
 							/>								
 						</View>					
 

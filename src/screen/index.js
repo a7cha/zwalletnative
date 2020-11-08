@@ -14,8 +14,10 @@ import {	UserDashboard,
 			PinTransfer, 
 			TransferStatus, 
 			Topup,
-			Notification	
+			Notification,	
+			ProfileMenu
 		} from './user'
+
 
 
 export {
@@ -33,5 +35,6 @@ export {
 	PinTransfer,
 	TransferStatus,
 	Topup,
-	Notification
+	Notification,
+	ProfileMenu	
 }

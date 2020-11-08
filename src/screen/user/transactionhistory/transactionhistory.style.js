@@ -155,6 +155,12 @@ export default StyleSheet.create({
 		fontSize : fp(3),
 		justifyContent : 'center',
 		flexDirection : 'column'
-	}
+	},
+	moneyMinus : {
+		marginTop : hp(2),
+		fontFamily : 'NunitoSans-SemiBold',
+		color : '#FF5B37',
+		fontSize : fp(4)
+	}	
 
 })
