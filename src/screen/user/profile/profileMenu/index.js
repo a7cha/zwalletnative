@@ -1,4 +1,4 @@
-import React,{useState, Fragment} from 'react'
+import React,{useState, Fragment, useEffect} from 'react'
 import {
 	View,
 	ScrollView,
@@ -13,8 +13,9 @@ import styles from './profilemenu.style.js'
 import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
-import Axios from 'axios';
+import axios from 'axios';
 import {useSelector} from 'react-redux'
+
 
 const ProfileMenu = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -26,18 +27,85 @@ const ProfileMenu = (props) => {
 		props.navigation.navigate('UserDashboard')
 	}
 
+	const ChangePassword = () => {
+		props.navigation.navigate('ChangePassword')	
+	}
 
+	const Auth = useSelector((s)=> s.Auth)	
 
+	const clearAllData = async function() {
+	    try {
+	        const keys = await AsyncStorage.getAllKeys();
+	        console.log(keys)
+	    } catch (error) {
+	        console.error('Error clearing app data.');
+	    }
+	}
+
+	useEffect(() => {
+    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
+	        axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
+	        .then(res =>{
+	        
+	        	setProfileData(res.data.data[0])
+
+	        
+	          console.log('ini data personal information: ', profileData)
+	        }).catch(err => {
+	          console.log('data transfer axios error: ', err.message)
+	        });
+	}, [])	
+
+	const toPersonalInformation = () => {
+		props.navigation.navigate('PersonalInformation', {fullName : profileData.fullName, email : profileData.email , phoneNumber : profileData.phoneNumber} )
+	}
 
 	return(
 		<Fragment>
 			<ScrollView style={styles.bodyBackground}>				
 				<MobileNav thisnavigate={() => toDashboard()}/>				
 
-				<View style={styles.container}>				
+				<View style={styles.container}>		
+
+					<View style={styles.positionCenter}>
+						<View style={styles.flexColumn}>							
+						<Image source={{uri: profileData.img}} 
+								style = {{ width: 80, height: 80, borderRadius : 12 }}/>						
+						</View>
+					</View>
+
+
+
+					<View style={styles.positionCenter}>
+						<View style={styles.flexColumn}>							
+							<TouchableNativeFeedback style={styles.marginTop}>
+								<View style={styles.likeRow}>
+									<Icon name='edit-2' size={15} color={'#7A7886'}/>
+										<Text style={styles.editText}> Edit</Text>																							
+
+								</View>
+							</TouchableNativeFeedback>
+						</View>
+					</View>
+
+					<View style={styles.positionCenter}>
+						<View style={styles.flexColumn}>							
+							<Text style={styles.profileNme}>{profileData.fullName}</Text>
+						</View>
+					</View>
+
+					<View style={styles.positionCenter}>
+						<View style={styles.flexColumn}>							
+							<Text style={styles.phoneNumber}>+{profileData.phoneNumber}</Text>					
+						</View>
+					</View>					
+
+							
+							
+
 					<View styles={styles.flexColumn}>
 
-						<TouchableNativeFeedback>
+						<TouchableNativeFeedback onPress={() => toPersonalInformation()}>
 							<View style={styles.dashboardPanelist}>
 								<View style={styles.spaceBetween}>
 									<View style={styles.profileStatus}>									
@@ -53,7 +121,7 @@ const ProfileMenu = (props) => {
 							</View>
 						</TouchableNativeFeedback>	
 
-						<TouchableNativeFeedback>
+						<TouchableNativeFeedback onPress={() => ChangePassword()}>
 							<View style={styles.dashboardPanelist}>
 								<View style={styles.spaceBetween}>
 									<View style={styles.profileStatus}>									
@@ -107,7 +175,7 @@ const ProfileMenu = (props) => {
 							</View>
 						</TouchableNativeFeedback>		
 
-						<TouchableNativeFeedback>
+						<TouchableNativeFeedback onPress={() => clearAllData()}>
 							<View style={styles.dashboardPanelist}>
 								<View style={styles.positionCenter}>
 									<Text style={styles.logoutButton}>Logout</Text>																				

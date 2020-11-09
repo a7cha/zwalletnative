@@ -76,7 +76,7 @@ const Notification = (props) => {
 												{ history.sendBy == userData.id ? (
 													<Icon name='arrow-down' size={30} color={'#FF5B37'}/>
 												) : (
-													<Icon name='arrow-down' size={30} color={'#4CEDB3'}/>
+													<Icon name='arrow-up' size={30} color={'#4CEDB3'}/>
 												)
 												
 												}												

@@ -16,7 +16,9 @@ import { 	Login,
 			TransferStatus,
 			Topup,
 			Notification,
-			ProfileMenu
+			ProfileMenu,
+			PersonalInformation,
+			ChangePassword
 		} from '../screen'
 import {isLogin} from '../utils'
 import {useSelector} from 'react-redux'
@@ -135,6 +137,18 @@ const Router = () => {
 				component={ProfileMenu} 
 				options={{ headerShown: false }}
 			/>			
+
+			<Stack.Screen 
+				name='PersonalInformation' 
+				component={PersonalInformation} 
+				options={{ headerShown: false }}
+			/>
+			
+			<Stack.Screen 
+				name='ChangePassword' 
+				component={ChangePassword} 
+				options={{ headerShown: false }}
+			/>						
 
 		</Stack.Navigator>
     </NavigationContainer>	

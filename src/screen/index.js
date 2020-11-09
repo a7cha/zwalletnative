@@ -15,7 +15,9 @@ import {	UserDashboard,
 			TransferStatus, 
 			Topup,
 			Notification,	
-			ProfileMenu
+			ProfileMenu,
+			PersonalInformation,
+			ChangePassword
 		} from './user'
 
 
@@ -36,5 +38,7 @@ export {
 	TransferStatus,
 	Topup,
 	Notification,
-	ProfileMenu	
+	ProfileMenu,
+	PersonalInformation,
+	ChangePassword	
 }
