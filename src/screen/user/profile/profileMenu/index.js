@@ -13,8 +13,10 @@ import styles from './profilemenu.style.js'
 import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
+import {AuthLogout} from '../../../../redux/actions/Auth.js'
 import axios from 'axios';
 import {useSelector} from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 
 const ProfileMenu = (props) => {
@@ -33,13 +35,8 @@ const ProfileMenu = (props) => {
 
 	const Auth = useSelector((s)=> s.Auth)	
 
-	const clearAllData = async function() {
-	    try {
-	        const keys = await AsyncStorage.getAllKeys();
-	        console.log(keys)
-	    } catch (error) {
-	        console.error('Error clearing app data.');
-	    }
+	const clearAllData = () => {
+		dispatch(AuthLogout())
 	}
 
 	useEffect(() => {

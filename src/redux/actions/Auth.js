@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import {REACT_APP_API} from '../../../.env.js'
+import {REACT_APP_API} from '../../../env.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 

@@ -11,12 +11,12 @@ import styles from './login.style.js'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch } from 'react-redux';
 import {AuthLogin} from '../../../redux/actions/Auth'
-
+import { NetworkInfo } from "react-native-network-info";
 
 const Login = (props) => {
 	const inputPassword = useRef()
-	const [email, setEmail]	= useState(null);
-	const [password, setPassword] = useState(null);
+	const [email, setEmail]	= useState('');
+	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch()
 	const onSubmit = () => {
@@ -37,6 +37,10 @@ const Login = (props) => {
 	const toForgotPassword = () => {
 		props.navigation.navigate('FormForgotPassword')
 	}
+
+	NetworkInfo.getIPAddress().then(ipAddress => {
+	  console.log('ini api',ipAddress);
+	});
 
 	return(
 		<Fragment>
@@ -64,6 +68,7 @@ const Login = (props) => {
 									onSubmitEditing={() => inputPassword.current.focus()}
 									returnKeyType="next"
 								/>
+								<Icon name='email-outline' size={30} color={'black'} style={{position: 'relative'}}/>
 								</View>
 							</View>
 						</View>
