@@ -1,24 +1,39 @@
 import Axios from 'axios'
+import {REACT_APP_API} from '../../../.env.js'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const AuthLoginRequest = ()=> {
+
+export const AuthLoginRequest = ()=> {
     return{
         type: 'LOGIN_REQUEST'
     }
 }
 
-const AuthLoginSuccess = (data)=> {
+export const AuthLoginSuccess = (data)=> {
     return{
         type: 'LOGIN_SUCCESS',
         payload: data
     }
 }
-const AuthLoginError = (error)=> {
+export const AuthLoginError = (error)=> {
     return{
         type: 'LOGIN_ERROR',
         payload: error
     }
 }
 
+
+export const isAdmin = () => {
+    return{
+        type: 'IS_ADMIN'
+    }
+}
+
+export const isUser = () => {
+    return{
+        type: 'IS_USER'
+    }
+}
 
 
 export const AuthLogin = (fields) => {
@@ -27,7 +42,7 @@ export const AuthLogin = (fields) => {
         return Axios({
             method: 'POST',
             data: fields,
-            url: 'http://192.168.1.10:7000/zwallet/api/v1/auth/login'
+            url: `${REACT_APP_API}/auth/login`
         }).then((res)=> {
             const data = res.data
             console.log(data, 'dataas')
