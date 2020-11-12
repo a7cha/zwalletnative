@@ -1,6 +1,8 @@
 const initialState = {
-    data: [],
+    token: '',
     loading: false,
+    isUser : false,
+    isAdmin : false
   };
   
   const Auth = (state = initialState, action = {}) => {
@@ -15,14 +17,14 @@ const initialState = {
           ...state,
           loading: false,
           isLogin: true,
-          data: action.payload
+          token: action.payload
         };
       case 'LOGIN_ERROR':
         return {
           ...state,
           loading: false,
           isLogin: false,
-          data:[],
+          token:'',
           error: action.payload
         };
       case 'LOGOUT':
@@ -30,11 +32,23 @@ const initialState = {
           ...state,
           loading: false,
           isLogin: false,
-          data:[],
+          token:'',
           _persist: {
             rehydrated: true,
             version: -1
           }
+        };
+      case 'IS_ADMIN' :
+        return {
+          ...state,
+          isAdmin : true,
+          isUser : false
+        };
+      case 'IS_USER' : 
+        return {
+          ...state,
+          isAdmin : false,
+          isUser : true
         };
       default:
         return state

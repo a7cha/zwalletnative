@@ -9,10 +9,10 @@ export const AuthLoginRequest = ()=> {
     }
 }
 
-export const AuthLoginSuccess = (data)=> {
+export const AuthLoginSuccess = (token)=> {
     return{
         type: 'LOGIN_SUCCESS',
-        payload: data
+        payload: token
     }
 }
 export const AuthLoginError = (error)=> {
@@ -45,10 +45,16 @@ export const AuthLogin = (fields) => {
             url: `${REACT_APP_API}/auth/login`
         }).then((res)=> {
             const data = res.data
-            console.log(data, 'dataas')
-            dispatch(AuthLoginSuccess(data))
+            if(data.token.role == 100){
+                dispatch(isUser())
+            }else {
+                dispatch(isAdmin())
+            }
+            const token = data.token.token            
+            dispatch(AuthLoginSuccess(token))
         }).catch((err)=> {
             const message = err.message
+            console.log('ini error auth redux', message)
             dispatch(AuthLoginError(message))
         })
     }

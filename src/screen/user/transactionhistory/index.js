@@ -13,8 +13,8 @@ import styles from './transactionhistory.style.js'
 import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
-import Axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
 
 const TransactionHistory = (props) => {
 	const [userData, setUserData] = useState([])
@@ -24,34 +24,14 @@ const TransactionHistory = (props) => {
 		props.navigation.navigate('UserDashboard')
 	}
 
-	const Auth = useSelector((s)=> s.Auth)
+	const dispatch = useDispatch()
+	const {token}= useSelector((s)=> s.Auth)	
+	const {data} = useSelector((s) => s.User)
+	const {dataAll} = useSelector((s) => s.TransactionHistory)
 
     useEffect(() => {           
-    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
-	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
-	        .then(res =>{
-	        
-	        	setUserData(res.data.data[0])
-
-	        
-	          console.log('ini data did history: ', userData)
-	        }).catch(err => {
-	          console.log('data transfer axios error: ', err.message)
-	        });
-
-	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user/home', headers )
-	        .then(res =>{
-	        
-	        	setHistoryData(res.data.data.data)
-
-	        
-	          console.log('ini history data: ', historyData)
-	        }).catch(err => {
-	          console.log('data transfer axios error: ', err.message)
-	        });	        
-
-
-	        }, [])	
+    		dispatch(getHistoryTransactionUser(token))        
+		}, [])	
 
 
 	return(
@@ -67,7 +47,7 @@ const TransactionHistory = (props) => {
 				</View>
 					<View styles={styles.flexColumn}>
 
-						{ historyData.map(history =>{
+						{ dataAll.map(history =>{
 							return(
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>
@@ -81,7 +61,7 @@ const TransactionHistory = (props) => {
 											</View>
 
 											<View>
-												{ history.sendBy == userData.id ? (
+												{ history.sendBy == data.id ? (
 													<Text style={styles.moneyMinus}>-Rp.{history.amountTransfer}</Text>
 												) : (
 													<Text style={styles.moneyPlus}>+Rp.{history.amountTransfer}</Text>

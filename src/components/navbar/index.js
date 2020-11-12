@@ -10,9 +10,10 @@ import styles from './navbar.style.js'
 import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {ExampleProfile} from '../../assets/resources/illustration'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {AsyncStorage} from '@react-native-async-storage/async-storage'
 import Axios from 'axios';
+import {GetUser} from '../../redux/actions/User'
 
 const Navbar = (props) => {
 
@@ -21,23 +22,13 @@ const Navbar = (props) => {
 	const toNotification = () => {
 		props.navigation.navigate('Notification')
 	}
-	 
-	const Auth = useSelector((s)=> s.Auth)	
-
-			
-
+	
+	const dispatch = useDispatch()
+	const {data} = useSelector((s) => s.User)
+	const {token} = useSelector((s)=> s.Auth)	
+	
     useEffect(() => {           
-    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
-	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
-	        .then(res =>{
-	        
-	        	setUserData(res.data.data[0])
-
-	        
-	          console.log('ini data did mount: ', userData)
-	        }).catch(err => {
-	          console.log('data transfer axios error: ', err.message)
-	        });
+    		dispatch(GetUser(token))
 	        }, [])
 
 	return(
@@ -46,11 +37,11 @@ const Navbar = (props) => {
 				<View style={styles.spaceBetween}>
 					<TouchableNativeFeedback onPress={toProfile}>
 					<View style={styles.profileSection}>
-						<Image source={{uri: userData.img}} 
+						<Image source={{uri: data.img}} 
 								style = {{ width: 65, height: 65, borderRadius : 12 }}/>
 						<View style={styles.profileNameNavbarSection}>
 							<Text style={styles.helloText}>Hello ,</Text>
-							<Text style={styles.profileNameNavbar}>{userData.fullName}</Text>
+							<Text style={styles.profileNameNavbar}>{data.fullName}</Text>
 						</View>					
 					</View>
 					</TouchableNativeFeedback>

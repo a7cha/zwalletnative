@@ -32,6 +32,7 @@ const ProfileMenu = (props) => {
 	const ChangePassword = () => {
 		props.navigation.navigate('ChangePassword')	
 	}
+	const dispatch = useDispatch()
 
 	const Auth = useSelector((s)=> s.Auth)	
 

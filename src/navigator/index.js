@@ -27,11 +27,11 @@ import {useSelector} from 'react-redux'
 const Stack = createStackNavigator();
 
 const Router = () => {
-  const Auth = useSelector((s)=> s.Auth)	
+  const {isUser, isAdmin} = useSelector((s)=> s.Auth)	
 	return(
 	<NavigationContainer>		
 		<Stack.Navigator>
-			{Auth.data.token ? (
+			{isUser ? (
 
 			<Stack.Screen 
 				name='UserDashboard' 
