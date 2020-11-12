@@ -38,3 +38,10 @@ export const GetUser = (fields) => {
 		})
 	}
 }
+
+
+export const GetUserByid =(token, id) => async dispatch => {
+	const headers = { headers : { 'Authorization' : token}}
+	const res = await axios.get(`${REACT_APP_API}/user/getuser?id=${id}`)
+	dispatch({type : 'GET_DATA_USER_BY_ID', payload : res.data.data[0]})
+}

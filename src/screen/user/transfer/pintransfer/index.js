@@ -21,7 +21,7 @@ const PinTransfer = (props) => {
 	const [historyData, setHistoryData] = useState([])
 	const [pincode, setPincode] = useState('')
 
-	const Auth = useSelector((s)=> s.Auth)
+	const {token} = useSelector((s)=> s.Auth)
 
 	const toAmountBank = () => {
 		props.navigation.navigate('ConfirmTransfer')
@@ -41,8 +41,8 @@ const PinTransfer = (props) => {
 			pin : parseInt(pincode)		
 		}
 
-    	const headers = { headers: {'Authorization': Auth.data.token.token}}		
-        axios.post('http://192.168.1.10:7000/zwallet/api/v1/transaction/',data,headers)
+    	const headers = { headers: {'Authorization': token}}		
+        axios.post('http://192.168.1.13:7000/zwallet/api/v1/transaction/',data,headers)
              .then(res => {
                 props.navigation.navigate('TransferStatus',{amount : amount, notes : notes, itemId : itemId, photo : photo, phoneNumber : phoneNumber, fullName : fullName, time : time, status : 'transfer', balanceLeft : balanceLeft })
 

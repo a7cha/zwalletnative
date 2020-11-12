@@ -13,12 +13,13 @@ import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {getTransferData} from '../../../../redux/actions/Transfer'
+import {GetUserById} from '../../../../redux/actions/User'
 
 const SearchTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
-	const [quickAccess, setQuickAccess] = useState([])
-	const [email, setEmail] = useState([])
+	const [quickAccess, setQuickAccess] = useState([])	
 	const [limit, setLimit] = useState(6)
 	const [max, setMax] = useState(0)
 
@@ -30,36 +31,22 @@ const SearchTransfer = (props) => {
 		props.navigation.navigate('AmountBank', {itemId : id})
 	}
 
-	const Auth = useSelector((s)=> s.Auth)		
+	const dispatch = useDispatch()
+
+	const {token}= useSelector((s)=> s.Auth)
+	const {data} = useSelector((s) => s.User)
+	const {dataTransfer} = useSelector((s) => s.Transfer)
+
+	console.log('ini data transfer dari redux', dataTransfer)
 
 	useEffect(() => {
-    	const headers = { headers: {'Authorization': Auth.data.token.token}}  
+		dispatch(getTransferData(token))
 
-        axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
-        .then(res =>{
-        
-        	setEmail(res.data.data[0].email)
+		const result = dataTransfer.filter(item => {
+			return item.id !== data.id
+		})
 
-        
-          console.log('ini email: ', email)
-        }).catch(err => {
-          console.log('data transfer axios error: ', err.message)
-        })
-
-    	axios.get(`http://192.168.1.10:7000/zwallet/api/v1/user/all?sortBy=fullName&sortType=ASC&limit=9999&page=0`,headers)
-        .then(res =>{
-
-	        const result = res.data.data.filter(man => {
-	             return man.email !== email
-	        })        	
-        	setProfileData(result)
-
-
-        	console.log('ini data profile transfer',profileData)
-        	
-        }).catch(err => {
-          console.log(err)
-        });   
+		setProfileData(result)		
 
 	}, [])
 

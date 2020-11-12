@@ -15,8 +15,8 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import {AuthLogout} from '../../../../redux/actions/Auth.js'
 import axios from 'axios';
-import {useSelector} from 'react-redux'
-import { useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux'
+
 
 
 const ProfileMenu = (props) => {
@@ -40,22 +40,15 @@ const ProfileMenu = (props) => {
 		dispatch(AuthLogout())
 	}
 
-	useEffect(() => {
-    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
-	        axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
-	        .then(res =>{
-	        
-	        	setProfileData(res.data.data[0])
+	const {token}= useSelector((s)=> s.Auth)	
+	const {data} = useSelector((s) => s.User)
 
-	        
-	          console.log('ini data personal information: ', profileData)
-	        }).catch(err => {
-	          console.log('data transfer axios error: ', err.message)
-	        });
-	}, [])	
+	console.log('ini data',data)
+
+
 
 	const toPersonalInformation = () => {
-		props.navigation.navigate('PersonalInformation', {fullName : profileData.fullName, email : profileData.email , phoneNumber : profileData.phoneNumber} )
+		props.navigation.navigate('PersonalInformation', {fullName : data.fullName, email : data.email , phoneNumber : data.phoneNumber} )
 	}
 
 	return(
@@ -67,7 +60,7 @@ const ProfileMenu = (props) => {
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
-						<Image source={{uri: profileData.img}} 
+						<Image source={{uri: data.img}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>						
 						</View>
 					</View>
@@ -88,13 +81,13 @@ const ProfileMenu = (props) => {
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
-							<Text style={styles.profileNme}>{profileData.fullName}</Text>
+							<Text style={styles.profileNme}>{data.fullName}</Text>
 						</View>
 					</View>
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
-							<Text style={styles.phoneNumber}>+{profileData.phoneNumber}</Text>					
+							<Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>					
 						</View>
 					</View>					
 

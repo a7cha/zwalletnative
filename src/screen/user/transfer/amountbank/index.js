@@ -31,11 +31,11 @@ const AmountBank = (props) => {
 
 
 
-	const Auth = useSelector((s)=> s.Auth)
+	const {token} = useSelector((s)=> s.Auth)
 
 	useEffect(() => {
-		const headers = { headers: {'Authorization': Auth.data.token.token}}
-        axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
+		const headers = { headers: {'Authorization': token}}
+        axios.get('http://192.168.1.13:7000/zwallet/api/v1/user', headers )
         .then(res =>{
         
         	setUserData(res.data.data[0])
@@ -47,7 +47,7 @@ const AmountBank = (props) => {
         });		
 
     	
-        axios.get(`http://192.168.1.10:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
+        axios.get(`http://192.168.1.13:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
         .then(res =>{
           
           setProfileData(res.data.data[0])

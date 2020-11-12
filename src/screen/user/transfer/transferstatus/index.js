@@ -28,11 +28,11 @@ const TransferStatus = (props) => {
 	let {amount, notes, itemId, photo, phoneNumber, fullName, time, balanceLeft } = props.route.params
 
 
-	const Auth = useSelector((s)=> s.Auth)
+	const {token} = useSelector((s)=> s.Auth)
 
 	useEffect(() => {
-    	const headers = { headers: {'Authorization': Auth.data.token.token}}
-        axios.get(`http://192.168.1.10:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
+    	const headers = { headers: {'Authorization': token}}
+        axios.get(`http://192.168.1.13:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
         .then(res =>{
           
           setProfileData(res.data.data[0])

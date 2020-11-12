@@ -1,6 +1,7 @@
 const initialState = {
 	data : [],
 	loading : false,
+	temporary : []
 };
 
 	const User = (state = initialState, action = {}) => {
@@ -24,6 +25,12 @@ const initialState = {
 					data : [],
 					error : action.payload
 				};
+			case 'GET_DATA_USER_BY_ID' :
+				return {
+					...state,
+					loading : false,
+					temporary : action.payload
+				}
 			default : 
 				return state
 

@@ -14,6 +14,8 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
 import {TopupIcons} from '../../../assets/resources'
 import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux'
+import {getTopupStep} from '../../../redux/actions/Topup'
 
 
 const Topup = (props) => {
@@ -21,26 +23,19 @@ const Topup = (props) => {
 	const [topup, setTopup] = useState([])
 	const [pincode, setPincode] = useState('')
 
+	const dispatch = useDispatch()
+	const TopupStep = useSelector((s) => s.TopupStep)
 
+	console.log('ini data topup',TopupStep)
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
 	}
 
 
     useEffect(() => {           
-	        axios.get('http://192.168.1.10:7000/zwallet/api/v1/topup/all')
-	        .then(res =>{
-	        
-	        	setTopup(res.data.data)
-
-	        
-	          console.log('ini data topup: ', topup)
-	        }).catch(err => {
-	          console.log('data transfer axios error: ', err.message)
-	        });       
-
-
-	        }, [])
+    	dispatch(getTopupStep())
+    	setTopup(TopupStep.topupStep)
+	   }, [])
 
 
 

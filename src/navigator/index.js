@@ -29,7 +29,7 @@ import SplashScreen from 'react-native-splash-screen'
 const Stack = createStackNavigator();
 
 const Router = () => {
-  const {isUser, isAdmin} = useSelector((s)=> s.Auth)	
+  const {isUser, isAdmin, isLogin} = useSelector((s)=> s.Auth)	
 
   useEffect(() => {
         SplashScreen.hide()
@@ -38,7 +38,7 @@ const Router = () => {
 	return(
 	<NavigationContainer>		
 		<Stack.Navigator>
-			{isUser ? (
+			{isUser  && isLogin? (
 
 			<Stack.Screen 
 				name='UserDashboard' 
