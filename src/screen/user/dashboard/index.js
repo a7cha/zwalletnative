@@ -94,7 +94,7 @@ const UserDashboard = (props) => {
 					<View styles={styles.flexColumn}>
 
 					{
-						dataAll.slice(0,3).map(history => {
+						dataAll != 'undefined' ? <Text></Text> : dataAll.slice(0,3).map(history => {
 							return(
 								<View style={styles.dashboardPanelist}>
 									<View style={styles.spaceBetween}>
@@ -102,8 +102,18 @@ const UserDashboard = (props) => {
 											<Image source={{uri: history.img}} 
 													style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 					 						<View style={styles.profileNameNavbarSection}>
-												<Text style={styles.profileName}>{history.receiveBy}</Text>
-												<Text style={styles.transactionStatus}>{history.status}</Text>
+					 							{ history.sendBy == data.id ? (
+					 								<>
+					 								<Text style={styles.profileName}>{history.receiveBy}</Text>
+					 								<Text style={styles.transactionStatus}>{history.status}</Text>
+					 								</>
+					 								) : (
+					 								<>
+					 								<Text style={styles.profileName}>{history.sender}</Text>
+					 								<Text style={styles.transactionStatus}>{history.status}</Text>					 								
+					 								</>
+					 								)					 																				
+					 							}
 											</View>			
 										</View>
 

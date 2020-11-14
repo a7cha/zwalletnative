@@ -9,6 +9,25 @@ export const AuthLoginRequest = ()=> {
     }
 }
 
+export const AuthRegisterRequest = () => {
+    return {
+        type : 'REGISTER_REQUEST'
+    }
+}
+
+export const AuthRegisterSuccess = () => {
+    return {
+        type : 'REGISTER_SUCCESS'
+    }
+}
+
+export const AuthRegisterFailed = (data) => {
+    return {
+        type : 'REGISTER_FAILED',
+        payload : data
+    }
+}
+
 export const AuthLoginSuccess = (token)=> {
     return{
         type: 'LOGIN_SUCCESS',
@@ -58,6 +77,17 @@ export const AuthLogin = (fields) => {
             dispatch(AuthLoginError(message))
         })
     }
+}
+
+
+export const AuthRegister = (fields) => async dispatch => {
+    dispatch(AuthRegisterRequest())
+    try{
+        const res = await Axios.post(`${REACT_APP_API}/auth/register`, fields)
+        dispatch(AuthRegisterSuccess(res))
+    }catch (error) {
+        dispatch(AuthRegisterFailed(error.message))
+    }  
 }
 
 
