@@ -2,7 +2,9 @@ const initialState = {
     token: '',
     loading: false,
     isUser : false,
-    isAdmin : false
+    isAdmin : false,
+    isLogin :false,
+    error : ''
   };
   
   const Auth = (state = initialState, action = {}) => {

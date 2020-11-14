@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import {Button, Text} from 'react-native-paper'	
 import styles from './form.style.js'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/Feather'
 
 const RegisterForm = (props) => {
 	const inputPassword = useRef()
@@ -17,6 +17,8 @@ const RegisterForm = (props) => {
 	const [email, setEmail]	= useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [wrongData, setWrongData] = useState(false)
+	const [revealPassword, setRevealPassword] = useState(true)
 
 	const createPin = () => {
 		props.navigation.navigate('RegisterPin');
@@ -40,12 +42,14 @@ const RegisterForm = (props) => {
 						</View>
 
 						<View style={styles.positionCenter}>
-							<View>
+							<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
 
-								<View>
+								<View style={{flexDirection : 'row'}}>
+
+								<Icon name='user' size={30} color={username != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																
 								<TextInput 
-									style={username != '' ? styles.formInputUsernameFilled : styles.formInputUsername}
+									style={styles.formInputEmail}
 									placeholder='Masukkan Username'
 									autoCapitalize={'none'}
 									value={username}
@@ -58,13 +62,15 @@ const RegisterForm = (props) => {
 						</View>						
 
 						<View style={styles.positionCenter}>
-							<View>
+							<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
 
-								<View>
+								<View style={{flexDirection : 'row'}}>
+
+								<Icon name='mail' size={30} color={email != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																
 								<TextInput 
 									ref={inputEmail}
-									style={email != '' ? styles.formInputEmailFilled : styles.formInputEmail}
+									style={styles.formInputEmail}
 									placeholder='Masukkan Email'
 									autoCapitalize={'none'}
 									value={email}
@@ -77,18 +83,26 @@ const RegisterForm = (props) => {
 						</View>
 						<View style={styles.positionCenter}>
 							
-							<TextInput 
-								ref={inputPassword}
-								style={password != '' ? styles.formInputPasswordFilled : styles.formInputPassword}
-								placeholder='Masukkan Password'
-								autoCapitalize={'none'}
-								value={password}
-								secureTextEntry={true}
-								returnKeyType="send"
-								returnKeyLabel="masuk"
-								onChangeText={(text) => setPassword(text)}
-								onSubmitEditing={() => createPin()}
-							/>
+							<View style={password != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+								<View style={{flexDirection : 'row'}}>
+									<Icon name='lock' size={30} color={password != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
+									<TextInput 
+										ref={inputPassword}
+										style={styles.formInputPassword}
+										placeholder='Masukkan Password'
+										autoCapitalize={'none'}
+										value={password}
+										secureTextEntry={revealPassword}
+										returnKeyType="send"
+										returnKeyLabel="masuk"
+										onChangeText={(text) => setPassword(text)}
+										onSubmitEditing={() => createPin()}
+									/>
+									<TouchableNativeFeedback>
+									<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+									</TouchableNativeFeedback>
+								</View>
+							</View>
 							
 						</View>
 

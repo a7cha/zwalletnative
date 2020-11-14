@@ -8,26 +8,38 @@ import {
 } from 'react-native'
 import {Button, Text} from 'react-native-paper'	
 import styles from './login.style.js'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useDispatch } from 'react-redux';
+import Icon from 'react-native-vector-icons/Feather'
+import { useDispatch, useSelector } from 'react-redux';
 import {AuthLogin} from '../../../redux/actions/Auth'
 import { NetworkInfo } from "react-native-network-info";
 
 const Login = (props) => {
+	const { isLogin, error, isAdmin, isUser } = useSelector(state => state.Auth)	
 	const inputPassword = useRef()
 	const [email, setEmail]	= useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [revealPassword, setRevealPassword] = useState(true)
+	const [wrongData, setWrongData] = useState(false)
 	const dispatch = useDispatch()
 	const onSubmit = () => {
 		setLoading(true);
-		dispatch(
-	      AuthLogin({
-	        email: email,
-	        password: password,
-	      })
-		)
-		console.log('clicked')
+		
+		dispatch(AuthLogin({email: email, password: password,}))
+
+       if(isLogin && !isAdmin && isUser) {
+           ToastAndroid.show('Login Success', ToastAndroid.SHORT)
+       }
+
+       if(isLogin && isAdmin && !isUser) {
+           ToastAndroid.show('Your account is admin please login on our web', ToastAndroid.LONG)
+       }
+
+       if(error && !isLogin) {
+           ToastAndroid.show('Wrong password or email', ToastAndroid.SHORT)
+       }       
+
+
 	};
 
 	const toRegister = () => {
@@ -37,6 +49,8 @@ const Login = (props) => {
 	const toForgotPassword = () => {
 		props.navigation.navigate('FormForgotPassword')
 	}
+
+
 
 	NetworkInfo.getIPAddress().then(ipAddress => {
 	  console.log('ini api',ipAddress);
@@ -55,12 +69,14 @@ const Login = (props) => {
 							<Text style={styles.formDesc}>Login to your existing account to access all the features in Zwallet.</Text>
 						</View>
 						<View style={styles.positionCenter}>
-							<View>
+							<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
 
-								<View>
+								<View style={{flexDirection : 'row'}}>
+
+								<Icon name='mail' size={30} color={email != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																
 								<TextInput 
-									style={email != '' ? styles.formInputEmailFilled : styles.formInputEmail}
+									style={styles.formInputEmail}
 									placeholder='Masukkan Email'
 									autoCapitalize={'none'}
 									value={email}
@@ -68,25 +84,31 @@ const Login = (props) => {
 									onSubmitEditing={() => inputPassword.current.focus()}
 									returnKeyType="next"
 								/>
-								<Icon name='email-outline' size={30} color={'black'} style={{position: 'relative'}}/>
 								</View>
 							</View>
 						</View>
 						<View style={styles.positionCenter}>
 							
-							<TextInput 
-								ref={inputPassword}
-								style={password != '' ? styles.formInputPasswordFilled : styles.formInputPassword}
-								placeholder='Masukkan Password'
-								autoCapitalize={'none'}
-								value={password}
-								secureTextEntry={true}
-								returnKeyType="send"
-								returnKeyLabel="masuk"
-								onChangeText={(text) => setPassword(text)}
-								onSubmitEditing={() => onSubmit()}
-							/>
-							
+							<View style={password != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+								<View style={{flexDirection : 'row'}}>
+									<Icon name='lock' size={30} color={password != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
+									<TextInput 
+										ref={inputPassword}
+										style={styles.formInputPassword}
+										placeholder='Masukkan Password'
+										autoCapitalize={'none'}
+										value={password}
+										secureTextEntry={revealPassword}
+										returnKeyType="send"
+										returnKeyLabel="masuk"
+										onChangeText={(text) => setPassword(text)}
+										onSubmitEditing={() => onSubmit()}
+									/>
+									<TouchableNativeFeedback>
+									<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+									</TouchableNativeFeedback>
+								</View>
+							</View>
 						</View>
 
 							
