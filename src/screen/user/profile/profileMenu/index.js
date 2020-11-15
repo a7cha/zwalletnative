@@ -25,6 +25,7 @@ const ProfileMenu = (props) => {
 	const [isEnabled, setIsEnabled] = useState(false);
 	const toggleSwitch = () => setIsEnabled(previousState => !previousState);	
 	const [avatarSource, setAvatarSource] = useState()
+	const [ngeditPhoto, setEditPhoto] = useState(false)
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
@@ -81,6 +82,7 @@ const ProfileMenu = (props) => {
             console.log(data, 'ini error message edit')
             console.log('                                                       ini responsenya wkwokwokowkowkow',response.uri, response.fileName, response.type , 'ini responsenya wkwokwokowkowkow')
             setAvatarSource(response.uri)
+            setEditPhoto(true)
         })
 	}
 	return(
@@ -95,8 +97,12 @@ const ProfileMenu = (props) => {
 						{ data.img == '' ? (
 							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
-							) : (
+							) : ngeditPhoto ? (
 							<Image source ={{uri: avatarSource}} 
+								style = {{ width: 80, height: 80, borderRadius : 12 }}/>								
+							):
+							(
+							<Image source ={{uri: data.img}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
 							)
 
