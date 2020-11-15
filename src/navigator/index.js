@@ -1,5 +1,6 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {NavigationContainer} from '@react-navigation/native'
+import messaging from '@react-native-firebase/messaging';
 import { createStackNavigator } from '@react-navigation/stack';
 import { 	Login, 
 			RegisterForm, 
@@ -30,11 +31,39 @@ const Stack = createStackNavigator();
 
 const Router = () => {
   const {isUser, isAdmin, isLogin} = useSelector((s)=> s.Auth)	
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-        SplashScreen.hide()
+  	 SplashScreen.hide()
 
-  }, [])
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+	    messaging().onNotificationOpenedApp(remoteMessage => {
+	      console.log(
+	        'Notification caused app to open from background state:',
+	        remoteMessage.notification,
+	      );
+	      navigation.navigate(remoteMessage.data.type);
+	    });
+
+	    // Check whether an initial notification is available
+	    messaging()
+	      .getInitialNotification()
+	      .then(remoteMessage => {
+	        if (remoteMessage) {
+	          console.log(
+	            'Notification caused app to open from quit state:',
+	            remoteMessage.notification,
+	          );
+	          setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
+	        }
+	        setLoading(false);
+	      });
+	  }, []);
+
+	  if (loading) {
+	    return null;
+	  }
 	return(
 	<NavigationContainer>		
 		<Stack.Navigator>
