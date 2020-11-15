@@ -15,15 +15,16 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import {AuthLogout} from '../../../../redux/actions/Auth.js'
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 import {useSelector, useDispatch} from 'react-redux'
-
-
+import {editPhoto} from '../../../../redux/actions/User'
 
 const ProfileMenu = (props) => {
 	const [profileData, setProfileData] = useState([])
 	const [historyData, setHistoryData] = useState([])
 	const [isEnabled, setIsEnabled] = useState(false);
 	const toggleSwitch = () => setIsEnabled(previousState => !previousState);	
+	const [avatarSource, setAvatarSource] = useState()
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
@@ -36,21 +37,52 @@ const ProfileMenu = (props) => {
 
 	const Auth = useSelector((s)=> s.Auth)	
 
-	const clearAllData = () => {
+	const clearAllData = () => {		
 		dispatch(AuthLogout())
+		props.navigation.navigate('Login')			
 	}
 
 	const {token}= useSelector((s)=> s.Auth)	
-	const {data} = useSelector((s) => s.User)
+	const {data , messageEdit} = useSelector((s) => s.User)
 
 	console.log('ini data',data)
 
-
+	console.log('ini cek berhasil atau tidak     ',messageEdit)
+	console.log('                         ini token bro', token)
 
 	const toPersonalInformation = () => {
 		props.navigation.navigate('PersonalInformation', {fullName : data.fullName, email : data.email , phoneNumber : data.phoneNumber} )
 	}
 
+	const options = {
+	  title: 'Select Avatar',
+	  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+	  storageOptions: {
+	    skipBackup: true,
+	    path: 'images',
+	  },
+	};	
+
+	const ImageLibrary = () => {
+        ImagePicker.showImagePicker({}, (response) => {
+            console.log(response)
+            const formData = new FormData()
+            formData.append({},{
+                uri: response.uri,
+                name: response.fileName,
+                type: response.type
+            })           
+            const base64 = 'data:image/jpeg;base64,'
+            const ambil = response.data
+            const jumlah = base64+ambil
+            console.log('                                  ini form data    formdata',formData)
+            dispatch(editPhoto(formData, token))
+
+            console.log(data, 'ini error message edit')
+            console.log('                                                       ini responsenya wkwokwokowkowkow',response.uri, response.fileName, response.type , 'ini responsenya wkwokwokowkowkow')
+            setAvatarSource(response.uri)
+        })
+	}
 	return(
 		<Fragment>
 			<ScrollView style={styles.bodyBackground}>				
@@ -60,8 +92,15 @@ const ProfileMenu = (props) => {
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
-						<Image source={{uri: data.img}} 
-								style = {{ width: 80, height: 80, borderRadius : 12 }}/>						
+						{ data.img == '' ? (
+							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
+								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
+							) : (
+							<Image source ={{uri: avatarSource}} 
+								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
+							)
+
+						}
 						</View>
 					</View>
 
@@ -69,7 +108,7 @@ const ProfileMenu = (props) => {
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
-							<TouchableNativeFeedback style={styles.marginTop}>
+							<TouchableNativeFeedback style={styles.marginTop} onPress={ImageLibrary}>
 								<View style={styles.likeRow}>
 									<Icon name='edit-2' size={15} color={'#7A7886'}/>
 										<Text style={styles.editText}> Edit</Text>																							
@@ -86,8 +125,15 @@ const ProfileMenu = (props) => {
 					</View>
 
 					<View style={styles.positionCenter}>
-						<View style={styles.flexColumn}>							
-							<Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>					
+						<View style={styles.flexColumn}>
+							{ data.phoneNumber != 'NULL' ? (
+									<Text style={styles.phoneNumber}>-</Text>													
+								) : (
+									<Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>													
+								)
+
+							}							
+
 						</View>
 					</View>					
 

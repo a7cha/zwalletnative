@@ -7,6 +7,7 @@ import {
 	TextInput,
 	TouchableNativeFeedback
 } from 'react-native'
+import {REACT_APP_API} from '../../../../../env'
 
 import styles from './transferstatus.style.js'
 import {Button, Text} from 'react-native-paper'
@@ -32,7 +33,7 @@ const TransferStatus = (props) => {
 
 	useEffect(() => {
     	const headers = { headers: {'Authorization': token}}
-        axios.get(`http://192.168.1.13:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
+        axios.get(`${REACT_APP_API}/user/getuser?id=${itemId}`,headers)
         .then(res =>{
           
           setProfileData(res.data.data[0])

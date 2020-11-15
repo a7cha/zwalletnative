@@ -37,8 +37,14 @@ const Navbar = (props) => {
 				<View style={styles.spaceBetween}>
 					<TouchableNativeFeedback onPress={toProfile}>
 					<View style={styles.profileSection}>
-						<Image source={{uri: data.img}} 
-								style = {{ width: 65, height: 65, borderRadius : 12 }}/>
+						{data.img == '' ? (
+							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
+								style = {{ width: 65, height: 65, borderRadius : 12 }}/>															
+							): (
+							<Image source ={{uri: data.img}} 
+								style = {{ width: 65, height: 65, borderRadius : 12 }}/>							
+							)}
+
 						<View style={styles.profileNameNavbarSection}>
 							<Text style={styles.helloText}>Hello ,</Text>
 							<Text style={styles.profileNameNavbar}>{data.fullName}</Text>

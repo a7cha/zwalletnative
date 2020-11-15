@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import axios from 'axios';
 import {useSelector} from 'react-redux'
+import { REACT_APP_API } from '../../../../../env.js'
 
 const confirmTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -32,7 +33,7 @@ const confirmTransfer = (props) => {
 
 	useEffect(() => {
     	const headers = { headers: {'Authorization': token}}
-        axios.get(`http://192.168.1.13:7000/zwallet/api/v1/user/getuser?id=${itemId}`,headers)
+        axios.get(`${REACT_APP_API}/user/getuser?id=${itemId}`,headers)
         .then(res =>{
           
           setProfileData(res.data.data[0])

@@ -15,6 +15,7 @@ import {MobileNav} from '../../../../components'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import axios from 'axios';
 import {useSelector} from 'react-redux'
+import { REACT_APP_API } from '../../../../../env.js'
 
 const PinTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -42,7 +43,7 @@ const PinTransfer = (props) => {
 		}
 
     	const headers = { headers: {'Authorization': token}}		
-        axios.post('http://192.168.1.13:7000/zwallet/api/v1/transaction/',data,headers)
+        axios.post(`${REACT_APP_API}/transaction/`,data,headers)
              .then(res => {
                 props.navigation.navigate('TransferStatus',{amount : amount, notes : notes, itemId : itemId, photo : photo, phoneNumber : phoneNumber, fullName : fullName, time : time, status : 'transfer', balanceLeft : balanceLeft })
 

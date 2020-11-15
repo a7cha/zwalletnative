@@ -1,7 +1,10 @@
 const initialState = {
 	data : [],
 	loading : false,
-	temporary : []
+	temporary : [],
+	isEditSuccess : false,
+	isEditFailed : false,
+	messageEdit : ''
 };
 
 	const User = (state = initialState, action = {}) => {
@@ -30,6 +33,27 @@ const initialState = {
 					...state,
 					loading : false,
 					temporary : action.payload
+				};
+			case  'EDIT_USER_REQUEST' : 
+				return {
+					...state,
+					loading : true
+				};
+			case 'EDIT_USER_SUCCESS' :
+				return {
+					...state,
+					loading : false,
+					messageEdit : action.payload.message,
+					isEditSuccess : true,
+					isEditFailed : false
+				}
+			case 'EDIT_USER_FAILED' :
+				return {
+					...state,
+					loading : false,
+					messageEdit : action.payload.message,
+					isEditSuccess : false,
+					isEditFailed : true
 				}
 			default : 
 				return state

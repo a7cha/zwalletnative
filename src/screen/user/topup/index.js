@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
 import {TopupIcons} from '../../../assets/resources'
 import axios from 'axios';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch, connect} from 'react-redux'
 import {getTopupStep} from '../../../redux/actions/Topup'
 
 
@@ -32,10 +32,10 @@ const Topup = (props) => {
 	}
 
 
-    useEffect(() => {           
+    useEffect(() => {               	
     	dispatch(getTopupStep())
     	setTopup(TopupStep.topupStep)
-	   }, [])
+	   },[TopupStep.topupStep])
 
 
 
@@ -98,4 +98,4 @@ const Topup = (props) => {
 	)
 }
 
-export default Topup
+export default connect()(Topup)

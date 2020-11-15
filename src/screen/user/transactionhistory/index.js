@@ -47,7 +47,7 @@ const TransactionHistory = (props) => {
 				</View>
 					<View styles={styles.flexColumn}>
 
-						{ dataAll.map(history =>{
+						{ dataAll == 'undefined' ? <Text></Text> : dataAll.map(history =>{
 							return(
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>

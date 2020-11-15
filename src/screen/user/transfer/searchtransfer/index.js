@@ -17,11 +17,14 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getTransferData} from '../../../../redux/actions/Transfer'
 import {GetUserById} from '../../../../redux/actions/User'
 
+
 const SearchTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
 	const [quickAccess, setQuickAccess] = useState([])	
 	const [limit, setLimit] = useState(6)
 	const [max, setMax] = useState(0)
+
+	
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
@@ -37,7 +40,7 @@ const SearchTransfer = (props) => {
 	const {data} = useSelector((s) => s.User)
 	const {dataTransfer} = useSelector((s) => s.Transfer)
 
-	console.log('ini data transfer dari redux', dataTransfer)
+	console.log('                  ini data transfer dari redux                    ', dataTransfer)
 
 	useEffect(() => {
 		dispatch(getTransferData(token))
@@ -48,7 +51,7 @@ const SearchTransfer = (props) => {
 
 		setProfileData(result)		
 
-	}, [])
+	}, [data])
 
 
 
@@ -82,7 +85,7 @@ const SearchTransfer = (props) => {
 												<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
 													style = {{ width: 65, height: 65, borderRadius : 12 }}/>												 							
 												<Text style={styles.profileName}>{transfer.fullName}</Text>
-												<Text style={styles.transactionStatus}>{transfer.phoneNumber.length}</Text>
+												<Text style={styles.transactionStatus}></Text>
 											</View>	
 										</View>
 									</TouchableNativeFeedback>							 	

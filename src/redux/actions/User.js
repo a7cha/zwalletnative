@@ -45,3 +45,39 @@ export const GetUserByid =(token, id) => async dispatch => {
 	const res = await axios.get(`${REACT_APP_API}/user/getuser?id=${id}`)
 	dispatch({type : 'GET_DATA_USER_BY_ID', payload : res.data.data[0]})
 }
+
+
+export const editUserRequest = () => {
+	return {
+		type : 'EDIT_USER_REQUEST'
+	}
+}
+
+
+export const editUserFailed = (error) => {
+	return {
+		type : 'EDIT_USER_FAILED',
+		payload : error
+	}
+}
+
+export const editUserSuccess = (data) => {
+	return {
+		type : 'EDIT_USER_SUCCESS',
+		payload : data
+	}
+}
+export const editPhoto = (data, token) => async dispatch => {
+	dispatch(editUserRequest())
+	try{
+		const header = { headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'multipart/form-data',
+                Accept: 'application/json'
+            }}
+		const res = await Axios.patch(`${REACT_APP_API}/user/patch_user`,data, header)
+		dispatch(editUserSuccess(res.data))
+	}catch(error){
+		dispatch(editUserFailed(error.response.data))
+	}
+}

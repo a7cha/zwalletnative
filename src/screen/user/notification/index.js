@@ -15,6 +15,7 @@ import {MobileNav} from '../../../components'
 import {TopupIcons} from '../../../assets/resources'
 import Axios from 'axios';
 import {useSelector} from 'react-redux'
+import {REACT_APP_API} from '../../../../env'
 
 
 
@@ -28,11 +29,11 @@ const Notification = (props) => {
 		props.navigation.navigate('UserDashboard')
 	}
 
-	const Auth = useSelector((s)=> s.Auth)
+	const {token} = useSelector((s)=> s.Auth)
 
     useEffect(() => {           
-    		const headers = { headers: {'Authorization': Auth.data.token.token}}  
-	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user', headers )
+    		const headers = { headers: {'Authorization': token}}  
+	        Axios.get(`${REACT_APP_API}/user`, headers )
 	        .then(res =>{
 	        
 	        	setUserData(res.data.data[0])
@@ -43,7 +44,7 @@ const Notification = (props) => {
 	          console.log('data transfer axios error: ', err.message)
 	        });
 
-	        Axios.get('http://192.168.1.10:7000/zwallet/api/v1/user/home', headers )
+	        Axios.get(`${REACT_APP_API}/user/home`, headers )
 	        .then(res =>{
 	        
 	        	setHistoryData(res.data.data.data)

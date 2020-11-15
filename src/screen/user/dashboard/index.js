@@ -14,15 +14,16 @@ import Icon from 'react-native-vector-icons/Feather'
 import {Navbar} from '../../../components'
 import {useSelector, useDispatch} from 'react-redux'
 import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
+import {GetUser} from '../.../../../../redux/actions/User.js'
 
 
 const UserDashboard = (props) => {
 	const [userData, setUserData] = useState([])
 	const [historyData, setHistoryData] = useState([])
 
-	const toTransfer = () => {
-		props.navigation.navigate('SearchTransfer')
-	}
+	const dispatch = useDispatch()
+
+
 
 	const toTransactionHistory = () => {
 		props.navigation.navigate('TransactionHistory')
@@ -44,17 +45,21 @@ const UserDashboard = (props) => {
 		props.navigation.navigate('ProfileMenu')
 	}	
 
-	const dispatch = useDispatch()
+	
 	const {token}= useSelector((s)=> s.Auth)	
 	const {data} = useSelector((s) => s.User)
 	const {dataAll} = useSelector((s) => s.TransactionHistory)
 
-	console.log('ini data all',dataAll,'ini akhir data all')
+	console.log('                    ini data all',dataAll,'ini akhir data all   ')
 
     useEffect(() => {    
     		dispatch(getHistoryTransactionUser(token))    
 	    }, [])	
 
+	const toTransfer = () => {
+		dispatch(GetUser(token))
+		props.navigation.navigate('SearchTransfer')
+	}
 
 	return(
 		<Fragment>
@@ -67,7 +72,8 @@ const UserDashboard = (props) => {
 						<View style={styles.balanceTextPos}>
 							<Text style={styles.balanceText}>Balance</Text>
 							<Text style={styles.balanceValue}>Rp.{data.balance}</Text>
-							<Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>
+							{ data.phoneNumber != 'NULL' ? <Text style={styles.phoneNumber}>_</Text> : <Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>}
+							
 						</View>
 					</View>
 
@@ -94,7 +100,7 @@ const UserDashboard = (props) => {
 					<View styles={styles.flexColumn}>
 
 					{
-						dataAll != 'undefined' ? <Text></Text> : dataAll.slice(0,3).map(history => {
+						dataAll == '' ? <Text></Text> : dataAll.slice(0,3).map(history => {
 							return(
 								<View style={styles.dashboardPanelist}>
 									<View style={styles.spaceBetween}>
