@@ -18,7 +18,8 @@ import {	UserDashboard,
 			ProfileMenu,
 			PersonalInformation,
 			ChangePassword,
-			changeNumber
+			changeNumber,
+			ChangePin
 		} from './user'
 
 
@@ -42,5 +43,6 @@ export {
 	ProfileMenu,
 	PersonalInformation,
 	ChangePassword,
-	changeNumber	
+	changeNumber,
+	ChangePin	
 }

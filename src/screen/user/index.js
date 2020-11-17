@@ -7,7 +7,7 @@ import PinTransfer from './transfer/pintransfer'
 import TransferStatus from './transfer/transferstatus'
 import Topup from './topup'
 import Notification from './notification'
-import {ProfileMenu, PersonalInformation, ChangePassword, changeNumber} from './profile'
+import {ProfileMenu, PersonalInformation, ChangePassword, changeNumber,ChangePin} from './profile'
 
 export {
 	UserDashboard,
@@ -22,5 +22,6 @@ export {
 	ProfileMenu,
 	PersonalInformation,
 	ChangePassword,
-	changeNumber
+	changeNumber,
+	ChangePin
 }

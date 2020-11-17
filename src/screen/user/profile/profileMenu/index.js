@@ -35,6 +35,11 @@ const ProfileMenu = (props) => {
 	const ChangePassword = () => {
 		props.navigation.navigate('ChangePassword')	
 	}
+
+	const toChangePin = () => {
+		props.navigation.navigate('ChangePin')
+	}
+	
 	const dispatch = useDispatch()
 
 	const Auth = useSelector((s)=> s.Auth)	
@@ -177,7 +182,7 @@ const ProfileMenu = (props) => {
 							</View>
 						</TouchableNativeFeedback>	
 
-						<TouchableNativeFeedback>
+						<TouchableNativeFeedback onPress={() => toChangePin()}>
 							<View style={styles.dashboardPanelist}>
 								<View style={styles.spaceBetween}>
 									<View style={styles.profileStatus}>									
