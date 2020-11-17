@@ -14,6 +14,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {AsyncStorage} from '@react-native-async-storage/async-storage'
 import Axios from 'axios';
 import {GetUser} from '../../redux/actions/User'
+import {IMAGE_URI} from '../../../env.js'
 
 const Navbar = (props) => {
 
@@ -26,6 +27,7 @@ const Navbar = (props) => {
 	const dispatch = useDispatch()
 	const {data} = useSelector((s) => s.User)
 	const {token} = useSelector((s)=> s.Auth)	
+
 	
     useEffect(() => {           
     		dispatch(GetUser(token))
@@ -41,7 +43,7 @@ const Navbar = (props) => {
 							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
 								style = {{ width: 65, height: 65, borderRadius : 12 }}/>															
 							): (
-							<Image source ={{uri: data.img}} 
+							<Image source ={{uri: `${IMAGE_URI}${data.img}`}} 
 								style = {{ width: 65, height: 65, borderRadius : 12 }}/>							
 							)}
 

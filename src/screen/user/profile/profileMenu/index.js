@@ -18,6 +18,7 @@ import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import {useSelector, useDispatch} from 'react-redux'
 import {editPhoto} from '../../../../redux/actions/User'
+import {IMAGE_URI} from '../../../../../env.js'
 
 const ProfileMenu = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -68,19 +69,15 @@ const ProfileMenu = (props) => {
         ImagePicker.showImagePicker({}, (response) => {
             console.log(response)
             const formData = new FormData()
-            formData.append({},{
+            formData.append('images',{
                 uri: response.uri,
                 name: response.fileName,
                 type: response.type
             })           
-            const base64 = 'data:image/jpeg;base64,'
-            const ambil = response.data
-            const jumlah = base64+ambil
-            console.log('                                  ini form data    formdata',formData)
             dispatch(editPhoto(formData, token))
 
             console.log(data, 'ini error message edit')
-            console.log('                                                       ini responsenya wkwokwokowkowkow',response.uri, response.fileName, response.type , 'ini responsenya wkwokwokowkowkow')
+            console.log(' ini responsenya wkwokwokowkowkow',response.uri, response.fileName, response.type , 'ini responsenya wkwokwokowkowkow')
             setAvatarSource(response.uri)
             setEditPhoto(true)
         })
@@ -98,11 +95,11 @@ const ProfileMenu = (props) => {
 							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
 							) : ngeditPhoto ? (
-							<Image source ={{uri: avatarSource}} 
+							<Image source ={{uri: `${IMAGE_URI}${data.img}`}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>								
 							):
 							(
-							<Image source ={{uri: data.img}} 
+							<Image source ={{uri: `${IMAGE_URI}${data.img}`}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
 							)
 
@@ -132,7 +129,7 @@ const ProfileMenu = (props) => {
 
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>
-							{ data.phoneNumber != 'NULL' ? (
+							{ data.phoneNumber == 0 ? (
 									<Text style={styles.phoneNumber}>-</Text>													
 								) : (
 									<Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>													

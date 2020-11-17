@@ -98,16 +98,10 @@ export default StyleSheet.create({
         marginTop : 20
     },
     formInputPassword : {
-        width : 350,
-        height : 50,
-        borderTopColor : 'white',
-        borderRightColor : 'white',
-        borderLeftColor : 'white',
-        borderBottomColor : 'rgba(169, 169, 169, 0.6)',
-        borderWidth : 1,
-        borderRadius : 5,
-        marginVertical : 5,
-        marginTop : 20,
+        borderWidth : 0,
+        width : wp(76),        
+        marginHorizontal : wp(2),
+        fontSize  : fp(3),
     },
     formInputPasswordFilled : {
         width : 350,
@@ -161,4 +155,18 @@ export default StyleSheet.create({
         marginTop : wp(5),
         color : '#6379F4'
     },
+    borderInputPassword : {
+        borderBottomWidth : wp(0.4),
+        height : hp(10), 
+        width : 365,
+        borderBottomColor : 'rgba(169, 169, 169, 0.6)',
+        marginTop: hp(2)
+    },
+    borderInputPasswordFilled : {
+        borderBottomWidth : wp(0.4),
+        height : hp(10), 
+        width : 365,
+        borderBottomColor : '#6379F4',  
+        marginTop: hp(2)
+    }       
 })

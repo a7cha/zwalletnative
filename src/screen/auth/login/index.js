@@ -35,7 +35,7 @@ const Login = (props) => {
            ToastAndroid.show('Your account is admin please login on our web', ToastAndroid.LONG)
        }
 
-       if(!isLogin) {
+       if(!isLogin && !isUser) {
            ToastAndroid.show('Wrong password or email', ToastAndroid.SHORT)
        }       
 

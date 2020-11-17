@@ -72,7 +72,7 @@ const UserDashboard = (props) => {
 						<View style={styles.balanceTextPos}>
 							<Text style={styles.balanceText}>Balance</Text>
 							<Text style={styles.balanceValue}>Rp.{data.balance}</Text>
-							{ data.phoneNumber != 'NULL' ? <Text style={styles.phoneNumber}>_</Text> : <Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>}
+							{ data.phoneNumber == 0 ? <Text style={styles.phoneNumber}>_</Text> : <Text style={styles.phoneNumber}>+{data.phoneNumber}</Text>}
 							
 						</View>
 					</View>
@@ -90,9 +90,18 @@ const UserDashboard = (props) => {
 					<View style={styles.likeRowTwo}>
 						
 							<Text style={styles.pageTitle}>Transaction History</Text> 
-							<TouchableNativeFeedback onPress={() => toTransactionHistory()}>
-								<Text style={styles.seeAll}>See all</Text>
-							</TouchableNativeFeedback>
+							{ dataAll == undefined || dataAll.length < 3 ? 
+								(
+									<Text></Text>
+								) : 
+								(
+									<TouchableNativeFeedback onPress={() => toTransactionHistory()}>
+										<Text style={styles.seeAll}>See all</Text>
+									</TouchableNativeFeedback>
+								)
+
+								}
+
 							
 					</View>
 
@@ -100,7 +109,7 @@ const UserDashboard = (props) => {
 					<View styles={styles.flexColumn}>
 
 					{
-						dataAll == '' ? <Text></Text> : dataAll.slice(0,3).map(history => {
+						dataAll == undefined ? <Text></Text> : dataAll.slice(0,3).map(history => {
 							return(
 								<View style={styles.dashboardPanelist}>
 									<View style={styles.spaceBetween}>

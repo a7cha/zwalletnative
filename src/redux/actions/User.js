@@ -77,6 +77,34 @@ export const editPhoto = (data, token) => async dispatch => {
             }}
 		const res = await Axios.patch(`${REACT_APP_API}/user/patch_user`,data, header)
 		dispatch(editUserSuccess(res.data))
+		dispatch(GetUser(token))
+	}catch(error){
+		dispatch(editUserFailed(error.response.data))
+	}
+}
+
+
+export const editUser = (data, token) => async dispatch => {
+	dispatch(editUserRequest())
+	try{
+		const header = { headers: {
+                'Authorization': `${token}`,
+            }}
+		const res = await Axios.patch(`${REACT_APP_API}/user/patch_user`,data, header)
+		dispatch(editUserSuccess(res.data))
+		dispatch(GetUser(token))
+	}catch(error){
+		dispatch(editUserFailed(error.response.data))
+	}
+}
+
+
+export const changePassword = (data, token) => async dispatch => {
+	try{
+		const header = { headers: {
+                'Authorization': `${token}`,
+            }}
+		const res = await Axios.patch(`${REACT_APP_API}/user/change_password`,data, header)
 	}catch(error){
 		dispatch(editUserFailed(error.response.data))
 	}

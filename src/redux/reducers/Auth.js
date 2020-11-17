@@ -34,7 +34,7 @@ const initialState = {
           ...state,
           loading: false,
           isLogin: false,
-          token:'',
+          token: [],
           _persist: {
             rehydrated: true,
             version: -1

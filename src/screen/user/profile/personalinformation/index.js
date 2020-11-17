@@ -24,6 +24,10 @@ const PersonalInformation = (props) => {
 		props.navigation.navigate('ProfileMenu')
 	}
 
+	const toChangeNumber = () => {
+		props.navigation.navigate('changeNumber')
+	}	
+
 
 
 	const {fullName, email, phoneNumber} = props.route.params
@@ -88,10 +92,33 @@ const PersonalInformation = (props) => {
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
 								<View style={styles.profileStatus}>
-			 						<View style={styles.profileNameNavbarSection}>										
-										<Text style={styles.transactionStatus}>Phone Number</Text>
-										<Text style={styles.textPanelConfirm}>+{phoneNumber}</Text>
-									</View>			
+									
+				 						<View style={styles.profileNameNavbarSection}>										
+											<Text style={styles.transactionStatus}>Phone Number</Text>
+											{ phoneNumber == 0 ? 
+												(	
+													<TouchableNativeFeedback onPress={() => toChangeNumber()}>
+														<Text style={styles.addPhoneNumberText}>Add Phone Number</Text>																
+													</TouchableNativeFeedback>
+												) 
+												: 
+												(
+													<Text style={styles.textPanelConfirm}>+{phoneNumber}</Text>
+												)
+											}										
+										</View>			
+										{ phoneNumber == 0 ?
+											(
+												<Text></Text>
+											)
+											:
+											(
+												<TouchableNativeFeedback onPress={() => toChangeNumber()}>
+													<Icon name='edit-2' style={{position : 'absolute',marginLeft : 270, marginTop : 25}} size={25} color={'#6379F4'}></Icon>
+												</TouchableNativeFeedback>
+											)
+										}
+									
 								</View>							
 							</View>							
 						</View>	

@@ -43,7 +43,7 @@ const PinTransfer = (props) => {
 		}
 
     	const headers = { headers: {'Authorization': token}}		
-        axios.post(`${REACT_APP_API}/transaction/`,data,headers)
+        axios.post(`${REACT_APP_API}/transaction`,data,headers)
              .then(res => {
                 props.navigation.navigate('TransferStatus',{amount : amount, notes : notes, itemId : itemId, photo : photo, phoneNumber : phoneNumber, fullName : fullName, time : time, status : 'transfer', balanceLeft : balanceLeft })
 

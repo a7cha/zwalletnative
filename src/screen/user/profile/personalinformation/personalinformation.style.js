@@ -107,6 +107,7 @@ export default StyleSheet.create({
 	},
 	profileStatus : {
 		flexDirection :  'row',		
+		justifyContent : 'space-between'
 	},
 	profileName : {
 		color : '#4D4B57',
@@ -262,6 +263,12 @@ export default StyleSheet.create({
     },	
     textButtonLoginFilled : {
         color : 'white' ,
-    }    
+    },
+	addPhoneNumberText : {
+		color : '#6379F4',
+		fontSize : fp(3.5),
+		fontFamily : 'NunitoSans-Bold',
+		marginTop : hp(1.2)	
+	},        
 
 })
