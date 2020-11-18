@@ -22,24 +22,24 @@ const Login = (props) => {
 	const [revealPassword, setRevealPassword] = useState(true)
 	const [wrongData, setWrongData] = useState(false)
 	const dispatch = useDispatch()
+	
 	const onSubmit = () => {
 		setLoading(true);
 		
 		dispatch(AuthLogin({email: email, password: password,}))
+	       if(isLogin && !isAdmin && isUser) {
+	           ToastAndroid.show('Login Success', ToastAndroid.SHORT)
+	       }
 
-       if(isLogin && !isAdmin && isUser) {
-           ToastAndroid.show('Login Success', ToastAndroid.SHORT)
-       }
+	       if(isLogin && isAdmin && !isUser) {
+	           ToastAndroid.show('Your account is admin please login on our web', ToastAndroid.LONG)
+	       }
 
-       if(isLogin && isAdmin && !isUser) {
-           ToastAndroid.show('Your account is admin please login on our web', ToastAndroid.LONG)
-       }
+	       if(!isUser) {
+	           ToastAndroid.show('Wrong password or email', ToastAndroid.SHORT)
+	       }    					
 
-       if(!isLogin && !isUser) {
-           ToastAndroid.show('Wrong password or email', ToastAndroid.SHORT)
-       }       
-
-
+   
 	};
 
 	const toRegister = () => {

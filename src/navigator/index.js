@@ -70,24 +70,98 @@ const Router = () => {
 	<NavigationContainer>		
 		<Stack.Navigator>
 			{isUser  && isLogin? (
+			<>
+				<Stack.Screen 
+					name='UserDashboard' 
+					component={UserDashboard} 
+					options={{ headerShown: false }}
+				/>
 
-			<Stack.Screen 
-				name='UserDashboard' 
-				component={UserDashboard} 
-				options={{ headerShown: false }}
-			/>
-			
+				<Stack.Screen 
+					name='TransactionHistory' 
+					component={TransactionHistory} 
+					options={{ headerShown: false }}
+				/>
+
+				<Stack.Screen 
+					name='SearchTransfer' 
+					component={SearchTransfer} 
+					options={{ headerShown: false }}
+				/>
+
+				<Stack.Screen 
+					name='AmountBank' 
+					component={AmountBank} 
+					options={{ headerShown: false }}
+				/>									
+
+				<Stack.Screen 
+					name='ConfirmTransfer' 
+					component={ConfirmTransfer} 
+					options={{ headerShown: false }}
+				/>			
+
+				<Stack.Screen 
+					name='PinTransfer' 
+					component={PinTransfer} 
+					options={{ headerShown: false }}
+				/>			
+
+				<Stack.Screen 
+					name='TransferStatus' 
+					component={TransferStatus} 
+					options={{ headerShown: false }}
+				/>
+
+				<Stack.Screen 
+					name='Topup' 
+					component={Topup} 
+					options={{ headerShown: false }}
+				/>
+
+				<Stack.Screen 
+					name='Notification' 
+					component={Notification} 
+					options={{ headerShown: false }}
+				/>											
+
+				<Stack.Screen 
+					name='ProfileMenu' 
+					component={ProfileMenu} 
+					options={{ headerShown: false }}
+				/>			
+
+				<Stack.Screen 
+					name='PersonalInformation' 
+					component={PersonalInformation} 
+					options={{ headerShown: false }}
+				/>
+				
+				<Stack.Screen 
+					name='ChangePassword' 
+					component={ChangePassword} 
+					options={{ headerShown: false }}
+				/>						
+
+				<Stack.Screen 
+					name='changeNumber' 
+					component={changeNumber} 
+					options={{ headerShown: false }}
+				/>
+							
+				<Stack.Screen 
+					name='ChangePin' 
+					component={ChangePin} 
+					options={{ headerShown: false }}
+				/>					
+			</>
 			): (
-
+			<>
 			<Stack.Screen 
 				name='Login' 
 				component={Login} 
 				options={{ headerShown: false }}
-			/>			
-
-			)
-			}
-
+			/>	
 
 			<Stack.Screen 
 				name='RegisterForm' 
@@ -120,85 +194,9 @@ const Router = () => {
 				options={{ headerShown: false }}
 			/>
 
-
-
-			<Stack.Screen 
-				name='TransactionHistory' 
-				component={TransactionHistory} 
-				options={{ headerShown: false }}
-			/>
-
-			<Stack.Screen 
-				name='SearchTransfer' 
-				component={SearchTransfer} 
-				options={{ headerShown: false }}
-			/>
-
-			<Stack.Screen 
-				name='AmountBank' 
-				component={AmountBank} 
-				options={{ headerShown: false }}
-			/>									
-
-			<Stack.Screen 
-				name='ConfirmTransfer' 
-				component={ConfirmTransfer} 
-				options={{ headerShown: false }}
-			/>			
-
-			<Stack.Screen 
-				name='PinTransfer' 
-				component={PinTransfer} 
-				options={{ headerShown: false }}
-			/>			
-
-			<Stack.Screen 
-				name='TransferStatus' 
-				component={TransferStatus} 
-				options={{ headerShown: false }}
-			/>
-
-			<Stack.Screen 
-				name='Topup' 
-				component={Topup} 
-				options={{ headerShown: false }}
-			/>
-
-			<Stack.Screen 
-				name='Notification' 
-				component={Notification} 
-				options={{ headerShown: false }}
-			/>											
-
-			<Stack.Screen 
-				name='ProfileMenu' 
-				component={ProfileMenu} 
-				options={{ headerShown: false }}
-			/>			
-
-			<Stack.Screen 
-				name='PersonalInformation' 
-				component={PersonalInformation} 
-				options={{ headerShown: false }}
-			/>
-			
-			<Stack.Screen 
-				name='ChangePassword' 
-				component={ChangePassword} 
-				options={{ headerShown: false }}
-			/>						
-
-			<Stack.Screen 
-				name='changeNumber' 
-				component={changeNumber} 
-				options={{ headerShown: false }}
-			/>
-						
-			<Stack.Screen 
-				name='ChangePin' 
-				component={ChangePin} 
-				options={{ headerShown: false }}
-			/>			
+			</>
+			)
+			}		
 
 		</Stack.Navigator>
     </NavigationContainer>	

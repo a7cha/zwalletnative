@@ -46,7 +46,11 @@ const ProfileMenu = (props) => {
 
 	const clearAllData = () => {		
 		dispatch(AuthLogout())
-		props.navigation.navigate('Login')			
+		try{
+			console.log('berhasil')
+		}catch (error){
+			console.log('gagal')
+		}
 	}
 
 	const {token}= useSelector((s)=> s.Auth)	

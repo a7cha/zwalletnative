@@ -3,6 +3,26 @@ import {REACT_APP_API} from '../../../env.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
+export const ResetPasswordRequest = () => {
+    return{
+        type : 'RESET_PASSWORD_REQUEST'
+    }
+}
+
+export const ResetPasswordSuccess = (data) => {
+    return {
+        type : 'RESET_PASSWORD_SUCCESS',
+        payload : data
+    }
+}
+
+export const ResetPasswordFailed = (error) => {
+    return{
+        type : 'RESET_PASSWORD_FAILED',
+        payload : error
+    }
+}
+
 export const AuthLoginRequest = ()=> {
     return{
         type: 'LOGIN_REQUEST'
@@ -15,16 +35,17 @@ export const AuthRegisterRequest = () => {
     }
 }
 
-export const AuthRegisterSuccess = () => {
+export const AuthRegisterSuccess = (data) => {
     return {
-        type : 'REGISTER_SUCCESS'
+        type : 'REGISTER_SUCCESS',
+        payload : data
     }
 }
 
-export const AuthRegisterFailed = (data) => {
+export const AuthRegisterFailed = (error) => {
     return {
         type : 'REGISTER_FAILED',
-        payload : data
+        payload : error
     }
 }
 
@@ -88,6 +109,28 @@ export const AuthRegister = (fields) => async dispatch => {
     }catch (error) {
         dispatch(AuthRegisterFailed(error.message))
     }  
+}
+
+
+export const CreatePin = (fields) => async dispatch => {
+    dispatch(AuthRegisterRequest())
+    try{
+        const res = await Axios.post(`${REACT_APP_API}/auth/create_pin`, fields)
+        dispatch(AuthRegisterSuccess(res))
+    }catch (error){
+        dispatch(AuthRegisterFailed(error.message))
+    }
+}
+
+
+export const ResetPassword = (data) => async dispatch => {
+    dispatch(ResetPasswordRequest())
+    try{
+        const res = await Axios.patch(`${REACT_APP_API}/auth/reset_password`, data)
+        dispatch(ResetPasswordSuccess(res))
+    }catch (error) {
+        dispatch(ResetPasswordFailed(error.message))
+    }
 }
 
 
