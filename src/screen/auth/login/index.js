@@ -67,7 +67,7 @@ const Login = (props) => {
 		
 		dispatch(AuthLogin({email: email, password: password, devtoken : deviceToken}))
 		.then((res) => {
-		       if(error) {
+		       if(!isUser) {
 		           ToastAndroid.show('Wrong email or password', ToastAndroid.SHORT)
 		       }    					
 

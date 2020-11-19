@@ -101,7 +101,7 @@ const ProfileMenu = (props) => {
 					<View style={styles.positionCenter}>
 						<View style={styles.flexColumn}>							
 						{ data.img == '' ? (
-							<Image source ={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
+							<Image source ={{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'}} 
 								style = {{ width: 80, height: 80, borderRadius : 12 }}/>													
 							) : ngeditPhoto ? (
 							<Image source ={{uri: `${IMAGE_URI}${data.img}`}} 

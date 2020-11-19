@@ -82,8 +82,19 @@ const SearchTransfer = (props) => {
 									<TouchableNativeFeedback onPress={() => toAmountBank(transfer.id)}>						
 										<View style={styles.quickPanelist}>
 					 						<View style={styles.quickAccessPos}>
-												<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} 
-													style = {{ width: 65, height: 65, borderRadius : 12 }}/>												 							
+					 							{ transfer.img !== '-' ? 
+					 								(
+													<Image 	source = {{uri: transfer.img}} 
+															style = {{ width: 65, height: 65, borderRadius : 12 }}/>												 							
+					 								) 
+					 								: 
+					 								(
+													<Image 	source = {{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'}} 
+															style = {{ width: 65, height: 65, borderRadius : 12 }}/>												 							
+					 								)
+
+					 							}
+
 												<Text style={styles.profileName}>{transfer.fullName}</Text>
 												<Text style={styles.transactionStatus}></Text>
 											</View>	
@@ -115,8 +126,8 @@ const SearchTransfer = (props) => {
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>
 											<View style={styles.profileStatus}>
-												{transfer.img == '' ? (
-														<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>																							
+												{transfer.img === '-' ? (
+														<Image source={{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>																							
 													) : (
 														<Image source={{uri: transfer.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 													)
