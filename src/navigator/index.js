@@ -26,6 +26,7 @@ import { 	Login,
 import {isLogin} from '../utils'
 import {useSelector} from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
+import {getDeviceToken} from '../redux/actions/User'
 
 
 
@@ -42,7 +43,7 @@ const Router = () => {
 
 	    messaging().onNotificationOpenedApp(remoteMessage => {
 	      console.log(
-	        'Notification caused app to open from background state:',
+	        '                                                                           Notification caused app to open from background state:',
 	        remoteMessage.notification,
 	      );
 	      navigation.navigate(remoteMessage.data.type);
@@ -61,6 +62,9 @@ const Router = () => {
 	        }
 	        setLoading(false);
 	      });
+
+   		
+
 	  }, []);
 
 	  if (loading) {

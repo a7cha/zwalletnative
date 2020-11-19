@@ -112,6 +112,7 @@ const FormForgotPassword = (props) => {
 
 								<View style={styles.positionCenter}>
 									<Button 
+										disabled={newPassword && repeatNewPassword != '' ? false : true}
 										style={newPassword && repeatNewPassword != '' ? styles.buttonSubmitFilled : styles.buttonSubmit}
 										onPress={() => doResetPassword()}
 									>
@@ -153,6 +154,7 @@ const FormForgotPassword = (props) => {
 
 								<View style={styles.positionCenterButtonEmail}>
 									<Button 
+										disabled={email == '' ? true : false}
 										style={email != '' ? styles.buttonSubmitFilledEmail : styles.buttonSubmitEmail}
 										onPress={() => toResetPassword()}
 									>

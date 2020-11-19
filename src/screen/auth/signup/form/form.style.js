@@ -175,5 +175,23 @@ export default StyleSheet.create({
         width : 365,
         borderBottomColor : '#6379F4',  
         marginTop: hp(2)
-    }            
+    },
+    pincodePosition : {
+        alignItems : 'center',
+    },
+    formBoxLogin:{
+        backgroundColor : 'white',
+        borderTopLeftRadius : 20,
+        borderTopRightRadius : 20,
+        height : hp('67%'),
+        width : wp('100%'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+        elevation: 11,        
+    },                    
 })

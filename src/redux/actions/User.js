@@ -21,6 +21,13 @@ export const UserError = (error) => {
 	}
 }
 
+export const getDeviceToken = (data) => {
+	return {
+		type : 'GET_DEVICE_TOKEN',
+		payload : data
+	}
+}
+
 
 export const GetUser = (fields) => {
 	return (dispatch) => {

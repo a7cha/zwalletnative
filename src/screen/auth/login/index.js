@@ -1,4 +1,4 @@
-import React,{useRef, useState, Fragment} from 'react'
+import React,{useRef, useState, Fragment, useEffect} from 'react'
 import {
 	ScrollView,
 	View,
@@ -12,6 +12,9 @@ import Icon from 'react-native-vector-icons/Feather'
 import { useDispatch, useSelector } from 'react-redux';
 import {AuthLogin} from '../../../redux/actions/Auth'
 import { NetworkInfo } from "react-native-network-info";
+import messaging from '@react-native-firebase/messaging';
+import {getDeviceToken} from '../../../redux/actions/User'
+
 
 const Login = (props) => {
 	const { isLogin, error, isAdmin, isUser } = useSelector(state => state.Auth)	
@@ -21,26 +24,10 @@ const Login = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [revealPassword, setRevealPassword] = useState(true)
 	const [wrongData, setWrongData] = useState(false)
+	const [success, setSuccess] = useState(false)
 	const dispatch = useDispatch()
-	
-	const onSubmit = () => {
-		setLoading(true);
-		
-		dispatch(AuthLogin({email: email, password: password,}))
-	       if(isLogin && !isAdmin && isUser) {
-	           ToastAndroid.show('Login Success', ToastAndroid.SHORT)
-	       }
 
-	       if(isLogin && isAdmin && !isUser) {
-	           ToastAndroid.show('Your account is admin please login on our web', ToastAndroid.LONG)
-	       }
 
-	       if(!isUser) {
-	           ToastAndroid.show('Wrong password or email', ToastAndroid.SHORT)
-	       }    					
-
-   
-	};
 
 	const toRegister = () => {
 		props.navigation.navigate('RegisterForm')
@@ -50,11 +37,48 @@ const Login = (props) => {
 		props.navigation.navigate('FormForgotPassword')
 	}
 
+	
 
 
 	NetworkInfo.getIPAddress().then(ipAddress => {
 	  console.log('ini api',ipAddress);
 	});
+
+	
+	useEffect(() => {
+	     messaging()
+	     	.getToken()
+	     	.then(devtoken => {
+	     		console.log(devtoken, 'ini devtoken')
+				dispatch(getDeviceToken(devtoken))	
+	     })		
+		return () => {
+			
+		};
+	}, [])
+
+	const {deviceToken} = useSelector((s) => s.User)
+
+	console.log('                ini device token        login            ' , deviceToken)
+
+
+	const onSubmit = () => {
+		setLoading(true);
+		
+		dispatch(AuthLogin({email: email, password: password, devtoken : deviceToken}))
+		.then((res) => {
+		       if(error) {
+		           ToastAndroid.show('Wrong email or password', ToastAndroid.SHORT)
+		       }    					
+
+		       if(isAdmin) {
+		           ToastAndroid.show('youare an admin', ToastAndroid.SHORT)
+		       }						
+		}).catch(err => {
+	
+		})        
+	};		
+
 
 	return(
 		<Fragment>

@@ -115,7 +115,7 @@ export const AuthRegister = (fields) => async dispatch => {
 export const CreatePin = (fields) => async dispatch => {
     dispatch(AuthRegisterRequest())
     try{
-        const res = await Axios.post(`${REACT_APP_API}/auth/create_pin`, fields)
+        const res = await Axios.patch(`${REACT_APP_API}/auth/create_pin`, fields)
         dispatch(AuthRegisterSuccess(res))
     }catch (error){
         dispatch(AuthRegisterFailed(error.message))

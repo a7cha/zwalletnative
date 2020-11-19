@@ -14,7 +14,8 @@ import Icon from 'react-native-vector-icons/Feather'
 import {Navbar} from '../../../components'
 import {useSelector, useDispatch} from 'react-redux'
 import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
-import {GetUser} from '../.../../../../redux/actions/User.js'
+import {GetUser, editUser} from '../.../../../../redux/actions/User.js'
+import messaging from '@react-native-firebase/messaging';
 
 
 const UserDashboard = (props) => {
@@ -47,13 +48,18 @@ const UserDashboard = (props) => {
 
 	
 	const {token}= useSelector((s)=> s.Auth)	
-	const {data} = useSelector((s) => s.User)
+	const {data, deviceToken} = useSelector((s) => s.User)
 	const {dataAll} = useSelector((s) => s.TransactionHistory)
 
 	console.log('                    ini data all',dataAll,'ini akhir data all   ')
 
+
+	console.log('                             ini device token                                            ' ,deviceToken)
     useEffect(() => {    
     		dispatch(getHistoryTransactionUser(token))    
+    		dispatch(editUser({device_token : deviceToken}, token))
+ 		
+    		
 	    }, [])	
 
 	const toTransfer = () => {

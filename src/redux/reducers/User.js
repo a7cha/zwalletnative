@@ -4,7 +4,8 @@ const initialState = {
 	temporary : [],
 	isEditSuccess : false,
 	isEditFailed : false,
-	messageEdit : ''
+	messageEdit : '',
+	deviceToken : ''
 };
 
 	const User = (state = initialState, action = {}) => {
@@ -54,6 +55,11 @@ const initialState = {
 					messageEdit : action.payload.message,
 					isEditSuccess : false,
 					isEditFailed : true
+				}
+			case 'GET_DEVICE_TOKEN' : 
+				return {
+					...state, 
+					deviceToken : action.payload
 				}
 			default : 
 				return state
