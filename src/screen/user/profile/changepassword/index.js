@@ -36,20 +36,32 @@ const ChangePassword = (props) => {
 	const dispatch = useDispatch()
 
 	const changePassword = () => {
-    let data = {
-        password : currentPassword,
-        newPassword : newPassword
-    }
-	const headers = { headers: {'Authorization': `${token}`}}    
-	Axios.patch(`${REACT_APP_API}/user/change_password`,data,headers)
-    .then(res => {
-		props.navigation.navigate('ProfileMenu');
-    })
-    .catch(err => {
-      console.log(err)
-    });
 
-				
+	if(repeatPassword == newPassword && currentPassword !== ''){
+	    let data = {
+	        password : currentPassword,
+	        newPassword : newPassword
+	    }
+		const headers = { headers: {'Authorization': `${token}`}}    
+		Axios.patch(`${REACT_APP_API}/user/change_password`,data,headers)
+	    .then(res => {
+			props.navigation.navigate('ProfileMenu');
+	    })
+	    .catch(err => {
+		  ToastAndroid.show('Wrong Current Password', ToastAndroid.SHORT)				    	
+	      setWrongData(true)
+	    });		
+	} else if (repeatPassword != newPassword && currentPassword !== ''){
+		setWrongData(true)
+		ToastAndroid.show('Cofirm password and new password not same', ToastAndroid.SHORT)
+	} else if (repeatPassword == newPassword && currentPassword == newPassword){
+		setWrongData(true)
+		ToastAndroid.show('Dont use old password', ToastAndroid.SHORT)
+	}
+	else {
+		setWrongData(true)
+		ToastAndroid.show('Wrong Current asdfPassword', ToastAndroid.SHORT)
+	}		
 	}
 
 	
@@ -67,7 +79,7 @@ const ChangePassword = (props) => {
 
 						<View style={styles.positionCenter}>
 							
-							<View style={currentPassword != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+							<View style={currentPassword != '' ? wrongData ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 								<View style={{flexDirection : 'row'}}>
 									<Icon name='lock' size={30} color={currentPassword != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
 									<TextInput 
@@ -91,7 +103,7 @@ const ChangePassword = (props) => {
 
 						<View style={styles.positionCenter}>
 							
-							<View style={newPassword != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+							<View style={newPassword != '' ? wrongData ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 								<View style={{flexDirection : 'row'}}>
 									<Icon name='lock' size={30} color={newPassword != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
 									<TextInput 
@@ -116,7 +128,7 @@ const ChangePassword = (props) => {
 
 						<View style={styles.positionCenter}>
 							
-							<View style={repeatPassword != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+							<View style={repeatPassword != '' ? wrongData ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 								<View style={{flexDirection : 'row'}}>
 									<Icon name='lock' size={30} color={repeatPassword != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
 									<TextInput 

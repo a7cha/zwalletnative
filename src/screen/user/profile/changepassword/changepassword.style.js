@@ -168,5 +168,14 @@ export default StyleSheet.create({
         width : 365,
         borderBottomColor : '#6379F4',  
         marginTop: hp(2)
-    }       
+    },
+    borderInputPasswordFilledWrong : {
+        borderBottomWidth : wp(0.5),
+        height : hp(10), 
+        width : 365,
+        borderBottomColor : '#FF5B37',  
+        marginTop: hp(2)
+    }           
+
+
 })

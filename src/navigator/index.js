@@ -43,7 +43,7 @@ const Router = () => {
 
 	    messaging().onNotificationOpenedApp(remoteMessage => {
 	      console.log(
-	        '                                                                           Notification caused app to open from background state:',
+	        'Notification caused app to open from background state:',
 	        remoteMessage.notification,
 	      );
 	      navigation.navigate(remoteMessage.data.type);

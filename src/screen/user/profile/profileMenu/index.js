@@ -17,7 +17,7 @@ import {AuthLogout} from '../../../../redux/actions/Auth.js'
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import {useSelector, useDispatch} from 'react-redux'
-import {editPhoto} from '../../../../redux/actions/User'
+import {editPhoto, editUser} from '../../../../redux/actions/User'
 import {IMAGE_URI} from '../../../../../env.js'
 
 const ProfileMenu = (props) => {
@@ -44,19 +44,22 @@ const ProfileMenu = (props) => {
 
 	const Auth = useSelector((s)=> s.Auth)	
 
-	const clearAllData = () => {		
-		dispatch(AuthLogout())
-		try{
-			console.log('berhasil')
-		}catch (error){
-			console.log('gagal')
-		}
-	}
+
 
 	const {token}= useSelector((s)=> s.Auth)	
 	const {data , messageEdit} = useSelector((s) => s.User)
 
 	console.log('ini data',data)
+
+	const clearAllData = () => {		
+		dispatch(editUser({'device_token' : '-'}, token))
+		try{
+			dispatch(AuthLogout())
+			console.log('berhasil')
+		}catch (error){
+			console.log('gagal')
+		}
+	}	
 
 	console.log('ini cek berhasil atau tidak     ',messageEdit)
 	console.log('                         ini token bro', token)
@@ -73,6 +76,8 @@ const ProfileMenu = (props) => {
 	    path: 'images',
 	  },
 	};	
+
+
 
 	const ImageLibrary = () => {
         ImagePicker.showImagePicker({}, (response) => {
