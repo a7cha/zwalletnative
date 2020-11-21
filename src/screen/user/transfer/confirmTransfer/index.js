@@ -48,7 +48,7 @@ const confirmTransfer = (props) => {
 	const balanceLeft = balance - amount
 	const toPinTransfer = () => {
 
-		props.navigation.navigate('PinTransfer',{amount : amount, notes : notes, itemId : itemId, photo : profileData.img, phoneNumber : profileData.phoneNumber, fullName : profileData.fullName, time : time, status : 'transfer', balanceLeft : balanceLeft },)
+		props.navigation.navigate('PinTransfer',{amount : amount, notes : notes, itemId : itemId, photo : profileData.img, phoneNumber : profileData.phoneNumber, fullName : profileData.fullName, time : time, status : 'transfer', balanceLeft : balanceLeft, device_token : profileData.device_token },)
 	}
 	return(
 		<Fragment>

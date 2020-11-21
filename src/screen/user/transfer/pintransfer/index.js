@@ -1,4 +1,4 @@
-import React,{useState, Fragment} from 'react'
+import React,{useState, Fragment, useEffect} from 'react'
 import {
 	View,
 	ScrollView,
@@ -14,8 +14,9 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import { REACT_APP_API } from '../../../../../env.js'
+import {GetUser} from '../../../../redux/actions/User'
 
 const PinTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -28,22 +29,33 @@ const PinTransfer = (props) => {
 		props.navigation.navigate('ConfirmTransfer')
 	}
 
-	let {amount, notes, itemId, photo, phoneNumber, fullName, time,status, balanceLeft} = props.route.params
+	let {amount, notes, itemId, photo, phoneNumber, fullName, time,status, balanceLeft, device_token} = props.route.params
+
+	const dispatch = useDispatch()
+
+	const {data} = useSelector((s) => s.User)
+
+
+useEffect(() => {
+    dispatch(GetUser(token))
+}, [])
 
 
 	const toTransferStatus = () => {
 
-		let data = {
+		let datatransfer = {
 			receiver : parseInt(itemId),
 			status : status,
 			amountTransfer : amount,
 			note : notes,
 			balanceLeft : balanceLeft,
-			pin : parseInt(pincode)		
+			pin : parseInt(pincode),
+			device_token_receiver : device_token,
+			sender : data.fullName
 		}
 
     	const headers = { headers: {'Authorization': token}}		
-        axios.post(`${REACT_APP_API}/transaction`,data,headers)
+        axios.post(`${REACT_APP_API}/transaction`,datatransfer,headers)
              .then(res => {
                 props.navigation.navigate('TransferStatus',{amount : amount, notes : notes, itemId : itemId, photo : photo, phoneNumber : phoneNumber, fullName : fullName, time : time, status : 'transfer', balanceLeft : balanceLeft })
 

@@ -96,7 +96,7 @@ const UserDashboard = (props) => {
 					<View style={styles.likeRowTwo}>
 						
 							<Text style={styles.pageTitle}>Transaction History</Text> 
-							{ dataAll == undefined || dataAll.length < 3 ? 
+							{ dataAll == undefined || dataAll.length < 2 ? 
 								(
 									<Text></Text>
 								) : 
