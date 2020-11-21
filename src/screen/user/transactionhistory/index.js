@@ -52,8 +52,18 @@ const TransactionHistory = (props) => {
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>
 											<View style={styles.profileStatus}>
-												<Image source={{uri: history.img}} 
-														style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+												{ history.img !== '-' ? 
+													(
+														<Image source={{uri: history.img}} 
+																style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+													) 
+													: 
+													(
+														<Image source={{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'}} 
+																style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+													)
+
+												}									
 						 						<View style={styles.profileNameNavbarSection}>
 													<Text style={styles.profileName}>{history.receiveBy}</Text>
 													<Text style={styles.transactionStatus}>{history.status}</Text>
