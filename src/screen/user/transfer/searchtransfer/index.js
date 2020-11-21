@@ -16,7 +16,7 @@ import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux'
 import {getTransferData} from '../../../../redux/actions/Transfer'
 import {GetUserById} from '../../../../redux/actions/User'
-
+import {IMAGE_URI} from '../../../../../env.js'
 
 const SearchTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -84,7 +84,7 @@ const SearchTransfer = (props) => {
 					 						<View style={styles.quickAccessPos}>
 					 							{ transfer.img !== '-' ? 
 					 								(
-													<Image 	source = {{uri: transfer.img}} 
+													<Image 	source = {{uri: IMAGE_URI + transfer.img}} 
 															style = {{ width: 65, height: 65, borderRadius : 12 }}/>												 							
 					 								) 
 					 								: 
@@ -129,7 +129,7 @@ const SearchTransfer = (props) => {
 												{transfer.img === '-' ? (
 														<Image source={{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>																							
 													) : (
-														<Image source={{uri: transfer.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+														<Image source={{uri: `${IMAGE_URI}${transfer.img}`}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 													)
 
 												}

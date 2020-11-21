@@ -16,7 +16,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
 import {GetUser, editUser} from '../.../../../../redux/actions/User.js'
 import messaging from '@react-native-firebase/messaging';
-
+import {IMAGE_URI} from '../../../../env.js'
 
 const UserDashboard = (props) => {
 	const [userData, setUserData] = useState([])
@@ -122,7 +122,7 @@ const UserDashboard = (props) => {
 										<View style={styles.profileStatus}>
 											{ history.img !== '-' ? 
 												(
-													<Image source={{uri: history.img}} 
+													<Image source={{uri: `${IMAGE_URI}${history.img}`}} 
 															style = {{ width: 65, height: 65, borderRadius : 12 }}/>
 												) 
 												: 

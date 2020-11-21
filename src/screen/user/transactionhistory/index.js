@@ -15,14 +15,22 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../components'
 import {useSelector, useDispatch} from 'react-redux'
 import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
+import {IMAGE_URI} from '../../../../env.js'
 
 const TransactionHistory = (props) => {
 	const [userData, setUserData] = useState([])
 	const [historyData, setHistoryData] = useState([])
+	const [income, setIncome] = useState('')
+	const [outcome, setOutcome] = useState('')
+	const [transaction, setTransaction] = useState([])
+	const [sorting, setSorting] = useState(false)
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
 	}
+
+
+
 
 	const dispatch = useDispatch()
 	const {token}= useSelector((s)=> s.Auth)	
@@ -31,7 +39,37 @@ const TransactionHistory = (props) => {
 
     useEffect(() => {           
     		dispatch(getHistoryTransactionUser(token))        
+
+    		setTransaction(dataAll)
+
+    		console.log('                         ini transaction                                             ',transaction, '                         ini transaction                                             ')
+
+    		const outcomecek = dataAll.filter(item => {
+    			return item.receiver == data.id
+    		})
+
+    		setOutcome(outcomecek)
+    		console.log('                                ini outcome                                    ', outcome, '                                ini outcome                                    ' )
+
+    		const incomecek = dataAll.filter(item => {
+    			return item.receiver != data.id
+    		})
+
+    		setIncome(incomecek)
+
+
 		}, [])	
+
+    const pressOutcome = () => {    
+    	setSorting(true)
+    	setTransaction(outcome)
+    	console.log(transaction)
+    }
+
+    const pressIncome = () => {
+    	setSorting(true)
+    	setTransaction(income)
+    }    
 
 
 	return(
@@ -47,14 +85,15 @@ const TransactionHistory = (props) => {
 				</View>
 					<View styles={styles.flexColumn}>
 
-						{ dataAll == 'undefined' ? <Text></Text> : dataAll.map(history =>{
+
+						{ transaction == 'undefined' ? <Text></Text> : transaction.map(history =>{
 							return(
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>
 											<View style={styles.profileStatus}>
 												{ history.img !== '-' ? 
 													(
-														<Image source={{uri: history.img}} 
+														<Image source={{uri: IMAGE_URI+history.img}} 
 																style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 													) 
 													: 
@@ -65,7 +104,16 @@ const TransactionHistory = (props) => {
 
 												}									
 						 						<View style={styles.profileNameNavbarSection}>
-													<Text style={styles.profileName}>{history.receiveBy}</Text>
+						 							{ history.sendBy == data.id ? 
+						 								(
+						 									<Text style={styles.profileName}>{history.receiveBy}</Text>
+						 								) 
+						 								: 
+						 								(
+						 									<Text style={styles.profileName}>{history.sender}</Text>
+						 								)
+
+						 							}													
 													<Text style={styles.transactionStatus}>{history.status}</Text>
 												</View>			
 											</View>
@@ -89,9 +137,9 @@ const TransactionHistory = (props) => {
 					</View>
 
 					<View style={styles.likeRowTwo}>						
-							<View style={styles.likeRowSorting}>
-								<Button style={styles.sortingMoney} ><Icon name='arrow-up' size={30} color={'#FF5B37'}/></Button>
-								<Button style={styles.sortingMoney}><Icon name='arrow-down' size={30} color={'#1EC15F'}/></Button>
+							<View style={styles.likeRowSorting}>								
+								<Button style={styles.sortingMoney} onPress ={() => pressIncome()}><Icon name='arrow-up' size={30} color={'#FF5B37'}/></Button>
+								<Button style={styles.sortingMoney} onPress={() => pressOutcome()}><Icon name='arrow-down' size={30} color={'#1EC15F'}/></Button>
 							</View>
 
 							<View>						
