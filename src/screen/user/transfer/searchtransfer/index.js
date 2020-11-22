@@ -14,12 +14,12 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux'
-import {getTransferData} from '../../../../redux/actions/Transfer'
+import {getTransferData, getTransferSearch} from '../../../../redux/actions/Transfer'
 import {GetUserById} from '../../../../redux/actions/User'
 import {IMAGE_URI} from '../../../../../env.js'
 
 const SearchTransfer = (props) => {
-	const [profileData, setProfileData] = useState([])
+	const [profileData, setProfileData] = useState([0])
 	const [quickAccess, setQuickAccess] = useState([])	
 	const [limit, setLimit] = useState(6)
 	const [max, setMax] = useState(0)
@@ -38,7 +38,7 @@ const SearchTransfer = (props) => {
 
 	const {token}= useSelector((s)=> s.Auth)
 	const {data} = useSelector((s) => s.User)
-	const {dataTransfer} = useSelector((s) => s.Transfer)
+	const {dataTransfer, dataTransferSearch} = useSelector((s) => s.Transfer)
 
 	console.log('                  ini data transfer dari redux                    ', dataTransfer)
 
@@ -51,9 +51,36 @@ const SearchTransfer = (props) => {
 
 		setProfileData(result)		
 
-	}, [data])
+	}, [])
+
+	const searching = (query) => {		
+
+		if(query.length != 0){
+				
+		dispatch(getTransferSearch(query, token))
+		.then(res => {
+			const result = dataTransferSearch.filter(item => {
+				return item.id !== data.id
+			})
+
+			console.log(query.length)
+			setProfileData(result)
+			console.log('                               ini hasil searching',dataTransferSearch,'                                                            ini hasil searching')
+		}).catch(err => {
+			console.log(err)
+		})			
+		}else {
+			dispatch(getTransferData(token))
+
+			const result = dataTransfer.filter(item => {
+				return item.id !== data.id
+			})
+
+			setProfileData(result)				
+		}
 
 
+	}
 
 
 
@@ -65,7 +92,7 @@ const SearchTransfer = (props) => {
 				<View style={styles.container}>
 				<View style={styles.inputSearchTransfer}>
 					<View style={styles.likeRow}>
-						<TextInput placeholder='Search Receiver Here'/>
+						<TextInput placeholder='Search Receiver Here' onChangeText={(query) => searching(query)}/>
 					</View>
 				</View>
 				</View>
