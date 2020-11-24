@@ -36,11 +36,11 @@ export const GetUser = (fields) => {
 		return Axios.get(`${REACT_APP_API}/user`, headers)
 		.then((res) => {
 			const data = res.data.data
-			console.log('hasil dari redux getuser', data)
+			// console.log('hasil dari redux getuser', data)
 			dispatch(UserSuccess(data))
 		}).catch((err) => {
 			const message = err.message
-			console.log('user error redux', message)
+			// console.log('user error redux', message)
 			dispatch(UserError(message))
 		})
 	}

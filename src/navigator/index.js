@@ -27,6 +27,8 @@ import {isLogin} from '../utils'
 import {useSelector} from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
 import {getDeviceToken} from '../redux/actions/User'
+import {API_URI} from '../../env.js'
+import io from 'socket.io-client';
 
 
 
@@ -35,9 +37,14 @@ const Stack = createStackNavigator();
 const Router = () => {
   const {isUser, isAdmin, isLogin} = useSelector((s)=> s.Auth)	
   const [loading, setLoading] = useState(true);
+  const [chatMessage, setChatMessage] = useState('')
+  const [chatMessages, setChatMessages] = useState([])
+  const socket = io(API_URI)
 
   useEffect(() => {
   	 SplashScreen.hide()
+
+
 
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
 
@@ -62,6 +69,7 @@ const Router = () => {
 	        }
 	        setLoading(false);
 	      });
+
 
    		
 

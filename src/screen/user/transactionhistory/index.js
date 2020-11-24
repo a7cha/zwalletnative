@@ -42,14 +42,14 @@ const TransactionHistory = (props) => {
 
     		setTransaction(dataAll)
 
-    		console.log('                         ini transaction                                             ',transaction, '                         ini transaction                                             ')
+    		
 
     		const outcomecek = dataAll.filter(item => {
     			return item.receiver == data.id
     		})
 
     		setOutcome(outcomecek)
-    		console.log('                                ini outcome                                    ', outcome, '                                ini outcome                                    ' )
+    		
 
     		const incomecek = dataAll.filter(item => {
     			return item.receiver != data.id
@@ -63,7 +63,6 @@ const TransactionHistory = (props) => {
     const pressOutcome = () => {    
     	setSorting(true)
     	setTransaction(outcome)
-    	console.log(transaction)
     }
 
     const pressIncome = () => {

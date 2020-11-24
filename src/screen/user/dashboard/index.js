@@ -16,11 +16,16 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getHistoryTransactionUser} from '../../../redux/actions/TransactionHistory.js'
 import {GetUser, editUser} from '../.../../../../redux/actions/User.js'
 import messaging from '@react-native-firebase/messaging';
-import {IMAGE_URI} from '../../../../env.js'
+import {IMAGE_URI, API_URI} from '../../../../env.js'
+import io from 'socket.io-client';
+
 
 const UserDashboard = (props) => {
 	const [userData, setUserData] = useState([])
 	const [historyData, setHistoryData] = useState([])
+	const [balance, setBalance] = useState('')
+
+	
 
 	const dispatch = useDispatch()
 
@@ -51,16 +56,26 @@ const UserDashboard = (props) => {
 	const {data, deviceToken} = useSelector((s) => s.User)
 	const {dataAll} = useSelector((s) => s.TransactionHistory)
 
-	console.log('                    ini data all',dataAll,'ini akhir data all   ')
+	const socket = io(API_URI)
 
-
-	console.log('                             ini device token                                            ' ,deviceToken)
     useEffect(() => {    
+
+			socket.emit('getId', data.id)    	
+			socket.on('get-data', inidata => {
+				setBalance(inidata)
+			})			
+
+			console.log('                ini data dari socket ya ',balance)
+
     		dispatch(getHistoryTransactionUser(token))    
-    		dispatch(editUser({device_token : deviceToken}, token))
- 		
-    		
-	    }, [])	
+    		dispatch(editUser({device_token : deviceToken}, token))    	    		
+	    	return () => {
+	    		data
+	    	};    		
+	    }, [])
+
+
+	
 
 	const toTransfer = () => {
 		dispatch(GetUser(token))

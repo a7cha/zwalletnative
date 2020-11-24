@@ -94,7 +94,6 @@ export const AuthLogin = (fields) => {
             dispatch(AuthLoginSuccess(token))
         }).catch((err)=> {
             const message = err.message
-            console.log('ini error auth redux', message)
             dispatch(AuthLoginError(message))
         })
     }

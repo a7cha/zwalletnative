@@ -14,22 +14,34 @@ import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {IconSuccess, IconFailed} from '../../../../assets/resources'
 import axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {GetUser} from '../../../../redux/actions/User'
+import {getHistoryTransactionUser} from '../../../../redux/actions/TransactionHistory'
 
 const TransferStatus = (props) => {
 	const [profileData, setProfileData] = useState([])
 	const [historyData, setHistoryData] = useState([])
 	const [pincode, setPincode] = useState('')
 
+	const {token} = useSelector((s)=> s.Auth)
+
+	const {data} = useSelector((s)=> s.User)
+	const {dataAll} = useSelector((s) => s.TransactionHistory)
+
+
+	const dispatch = useDispatch()
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
+		dispatch(GetUser(token))
+    	dispatch(getHistoryTransactionUser(token))    
+
 	}
 
 	let {amount, notes, itemId, photo, phoneNumber, fullName, time, balanceLeft } = props.route.params
 
 
-	const {token} = useSelector((s)=> s.Auth)
+	
 
 	useEffect(() => {
     	const headers = { headers: {'Authorization': token}}
