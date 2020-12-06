@@ -17,6 +17,8 @@ import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux'
 import {GetUser} from '../../../../redux/actions/User'
 import {getHistoryTransactionUser} from '../../../../redux/actions/TransactionHistory'
+import {IMAGE_URI } from '../../../../../env.js'
+
 
 const TransferStatus = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -133,10 +135,10 @@ const TransferStatus = (props) => {
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
 								<View style={styles.profileStatus}>
-									{profileData.img == '' ? (
+									{profileData.img == '-' ? (
 											<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>																							
 										) : (
-											<Image source={{uri: profileData.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+											<Image source={{uri: IMAGE_URI+profileData.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 										)
 
 									}									

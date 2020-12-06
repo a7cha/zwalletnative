@@ -24,6 +24,7 @@ const TransactionHistory = (props) => {
 	const [outcome, setOutcome] = useState('')
 	const [transaction, setTransaction] = useState([])
 	const [sorting, setSorting] = useState(false)
+	const [loadMore, setLoadMore] = useState(4)
 
 	const toDashboard = () => {
 		props.navigation.navigate('UserDashboard')
@@ -60,6 +61,11 @@ const TransactionHistory = (props) => {
 
 		}, [])	
 
+	const setloadMore = () => {
+		const countLength = dataAll.length
+		setLoadMore(countLength)
+	}
+
     const pressOutcome = () => {    
     	setSorting(true)
     	setTransaction(outcome)
@@ -85,7 +91,7 @@ const TransactionHistory = (props) => {
 					<View styles={styles.flexColumn}>
 
 
-						{ transaction == 'undefined' ? <Text></Text> : transaction.map(history =>{
+						{ transaction == 'undefined' ? <Text></Text> : transaction.slice(0, loadMore).map(history =>{
 							return(
 									<View style={styles.dashboardPanelist}>
 										<View style={styles.spaceBetween}>
@@ -132,6 +138,10 @@ const TransactionHistory = (props) => {
 						})
 
 						}
+
+					<View style={{justifyContent : 'center',flexDirection : 'row'}}>
+						<TouchableNativeFeedback onPress={() => setloadMore()}><Text style={{color : '#6379F4', fontSize : 20}}>Load More</Text></TouchableNativeFeedback>
+					</View>
 
 					</View>
 

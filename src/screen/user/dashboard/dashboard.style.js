@@ -31,7 +31,7 @@ export default StyleSheet.create({
 		fontSize : fp(5),
 		color : 'white',
 		fontFamily : 'NunitoSans-Bold',
-		lineHeight : 33,
+		lineHeight : 50,
 	}, 
 	phoneNumber : {
 		fontSize : fp(3),

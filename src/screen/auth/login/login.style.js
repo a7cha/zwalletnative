@@ -112,26 +112,26 @@ export default StyleSheet.create({
     borderInput : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
-        width : 365,
+        width : wp(90),
         borderBottomColor : 'rgba(169, 169, 169, 0.6)',
     },
     borderInputFilled : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
-        width : 365,
+        width : wp(90),
         borderBottomColor : '#6379F4',  
     },    
     borderInputPassword : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
-        width : 365,
+        width : wp(90),
         borderBottomColor : 'rgba(169, 169, 169, 0.6)',
         marginTop: hp(2)
     },
     borderInputPasswordFilled : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
-        width : 365,
+        width : wp(90),
         borderBottomColor : '#6379F4',  
         marginTop: hp(2)
     }        

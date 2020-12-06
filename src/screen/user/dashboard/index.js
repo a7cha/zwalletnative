@@ -60,19 +60,21 @@ const UserDashboard = (props) => {
 
     useEffect(() => {    
 
-			socket.emit('getId', data.id)    	
-			socket.on('get-data', inidata => {
-				setBalance(inidata)
-			})			
 
-			console.log('                ini data dari socket ya ',balance)
+
+			
 
     		dispatch(getHistoryTransactionUser(token))    
     		dispatch(editUser({device_token : deviceToken}, token))    	    		
-	    	return () => {
-	    		data
-	    	};    		
-	    }, [])
+		
+	    },[],
+			socket.emit('getId', data.id)    	,
+			setInterval(() => socket.on('get-data', inidata => {
+				setBalance(inidata)
+			}), 100)
+	    )
+
+
 
 
 	

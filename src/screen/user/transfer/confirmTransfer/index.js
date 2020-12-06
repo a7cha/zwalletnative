@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import axios from 'axios';
 import {useSelector} from 'react-redux'
-import { REACT_APP_API } from '../../../../../env.js'
+import { REACT_APP_API, IMAGE_URI } from '../../../../../env.js'
 
 const confirmTransfer = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -66,10 +66,10 @@ const confirmTransfer = (props) => {
 						<View style={styles.dashboardPanelist}>
 							<View style={styles.spaceBetween}>
 								<View style={styles.profileStatus}>
-									{profileData.img == '' ? (
+									{profileData.img == '-' ? (
 											<Image source={{uri: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg'}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>																							
 										) : (
-											<Image source={{uri: profileData.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
+											<Image source={{uri:  IMAGE_URI+profileData.img}} style = {{ width: 65, height: 65, borderRadius : 12 }}/>									
 										)
 
 									}									

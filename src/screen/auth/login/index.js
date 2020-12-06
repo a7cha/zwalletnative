@@ -73,9 +73,12 @@ const Login = (props) => {
 
 		       if(isAdmin) {
 		           ToastAndroid.show('youare an admin', ToastAndroid.SHORT)
-		       }						
+		       }
+
+		       		ToastAndroid.show('Sudah login di lain device', ToastAndroid.SHORT)
+
 		}).catch(err => {
-	
+		           ToastAndroid.show('Lu gabisa login', ToastAndroid.SHORT)				
 		})        
 	};		
 
@@ -129,7 +132,7 @@ const Login = (props) => {
 										onSubmitEditing={() => onSubmit()}
 									/>
 									<TouchableNativeFeedback>
-									<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+									<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealPassword(!revealPassword)}/>
 									</TouchableNativeFeedback>
 								</View>
 							</View>
