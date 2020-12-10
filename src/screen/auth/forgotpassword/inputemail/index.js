@@ -78,7 +78,7 @@ const FormForgotPassword = (props) => {
 												onSubmitEditing={() => inputNewPassword.current.focus()}
 											/>
 											<TouchableNativeFeedback>
-											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealPassword(!revealPassword)}/>
 											</TouchableNativeFeedback>
 										</View>
 									</View>
@@ -88,7 +88,7 @@ const FormForgotPassword = (props) => {
 									
 									<View style={repeatNewPassword != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
 										<View style={{flexDirection : 'row'}}>
-											<Icon name='lock' size={30} color={repeatNewPassword != '' ? '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
+											<Icon name='lock' size={30} color={repeatNewPassword != '' ? '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10,}}/>
 											<TextInput 
 												ref={inputNewPassword}
 												style={styles.formInputPassword}
@@ -102,7 +102,7 @@ const FormForgotPassword = (props) => {
 												onSubmitEditing={() => doResetPassword()}
 											/>
 											<TouchableNativeFeedback>
-											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealPassword(!revealPassword)}/>
 											</TouchableNativeFeedback>
 										</View>
 									</View>

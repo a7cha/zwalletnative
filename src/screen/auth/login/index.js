@@ -24,32 +24,38 @@ const Login = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [revealPassword, setRevealPassword] = useState(true)
 	const [wrongData, setWrongData] = useState(false)
+	const [wrongDataEmail, setWrongDataEmail] = useState(false)
+	const [wrongDataPassword, setWrongDataPassword] = useState(false)
 	const [success, setSuccess] = useState(false)
 	const dispatch = useDispatch()
 
 
 
 	const toRegister = () => {
-		props.navigation.navigate('RegisterForm')
+		props.navigation.push('RegisterForm')
 	}
 
 	const toForgotPassword = () => {
-		props.navigation.navigate('FormForgotPassword')
+		props.navigation.push('FormForgotPassword')
 	}
 
 	
 
+	const textEmail = (text) => {
+		setEmail(text)		
+		setWrongDataEmail(false)
+	}
 
-	NetworkInfo.getIPAddress().then(ipAddress => {
-	  console.log('ini api',ipAddress);
-	});
+	const textPassword = (text) => {
+		setPassword(text)
+		setWrongDataPassword(false)
+	}
 
 	
 	useEffect(() => {
 	     messaging()
 	     	.getToken()
 	     	.then(devtoken => {
-	     		console.log(devtoken, 'ini devtoken')
 				dispatch(getDeviceToken(devtoken))	
 	     })		
 		return () => {
@@ -59,7 +65,7 @@ const Login = (props) => {
 
 	const {deviceToken} = useSelector((s) => s.User)
 
-	console.log('                ini device token        login            ' , deviceToken)
+	
 
 
 	const onSubmit = () => {
@@ -67,18 +73,28 @@ const Login = (props) => {
 		
 		dispatch(AuthLogin({email: email, password: password, devtoken : deviceToken}))
 		.then((res) => {
-		       if(!isUser) {
-		           ToastAndroid.show('Wrong email or password', ToastAndroid.SHORT)
-		       }    					
 
+			function validateEmail(email) 
+			    {
+			        var re = /\S+@\S+\.\S+/;
+			        return re.test(email);
+			    }			
+    					
 		       if(isAdmin) {
 		           ToastAndroid.show('youare an admin', ToastAndroid.SHORT)
+		           setWrongData(true)
 		       }
 
-		       		ToastAndroid.show('Sudah login di lain device', ToastAndroid.SHORT)
+		       if(!isLogin &&  !validateEmail(email)){
+		       		ToastAndroid.show('Wrong email or password', ToastAndroid.SHORT)
+		       		setWrongDataEmail(true)
+		       		setWrongDataPassword(true)
+		       }
+
+
 
 		}).catch(err => {
-		           ToastAndroid.show('Lu gabisa login', ToastAndroid.SHORT)				
+		           ToastAndroid.show(err, ToastAndroid.SHORT)						           
 		})        
 	};		
 
@@ -96,18 +112,18 @@ const Login = (props) => {
 							<Text style={styles.formDesc}>Login to your existing account to access all the features in Zwallet.</Text>
 						</View>
 						<View style={styles.positionCenter}>
-							<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
+							<View style={email != '' ? wrongDataEmail ? styles.borderInputFilledWrong : styles.borderInputFilled : styles.borderInput}>
 
 								<View style={{flexDirection : 'row'}}>
 
-								<Icon name='mail' size={30} color={email != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
+								<Icon name='mail' size={30} color={email != '' ? wrongDataEmail ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																
 								<TextInput 
 									style={styles.formInputEmail}
 									placeholder='Masukkan Email'
 									autoCapitalize={'none'}
 									value={email}
-									onChangeText={(text) => setEmail(text)}
+									onChangeText={(text) => textEmail(text)}
 									onSubmitEditing={() => inputPassword.current.focus()}
 									returnKeyType="next"
 								/>
@@ -116,9 +132,9 @@ const Login = (props) => {
 						</View>
 						<View style={styles.positionCenter}>
 							
-							<View style={password != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+							<View style={password != '' ? wrongDataPassword ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 								<View style={{flexDirection : 'row'}}>
-									<Icon name='lock' size={30} color={password != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
+									<Icon name='lock' size={30} color={password != '' ? wrongDataPassword ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
 									<TextInput 
 										ref={inputPassword}
 										style={styles.formInputPassword}
@@ -128,7 +144,7 @@ const Login = (props) => {
 										secureTextEntry={revealPassword}
 										returnKeyType="send"
 										returnKeyLabel="masuk"
-										onChangeText={(text) => setPassword(text)}
+										onChangeText={(text) => textPassword(text)}
 										onSubmitEditing={() => onSubmit()}
 									/>
 									<TouchableNativeFeedback>

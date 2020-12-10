@@ -13,7 +13,7 @@ import {Button, Text} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather'
 import {MobileNav} from '../../../../components'
 import axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 
 const PersonalInformation = (props) => {
 	const [profileData, setProfileData] = useState([])
@@ -24,11 +24,14 @@ const PersonalInformation = (props) => {
 		props.navigation.navigate('ProfileMenu')
 	}
 
+	const dispatch = useDispatch()
+
 	const toChangeNumber = () => {
 		props.navigation.navigate('changeNumber')
+
 	}	
 
-
+	
 
 	const {fullName, email, phoneNumber} = props.route.params
 

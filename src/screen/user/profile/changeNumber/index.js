@@ -33,7 +33,12 @@ const changeNumber = (props) => {
 
 	const submitNumber = () => {
 		dispatch(editUser({phoneNumber : phoneNumber}, token))
-		props.navigation.navigate('ProfileMenu')
+		.then(res => {
+			console.log(messageEdit)
+			props.navigation.goBack('ProfileMenu')
+		}).catch(err =>{
+			console.log(err)
+		})		
 	}
 
 	const deleteNumber = () => {

@@ -5,6 +5,7 @@ import {
 	Image,
 	Touchable,
 	TextInput,
+	ToastAndroid,	
 	TouchableNativeFeedback,
 	Switch
 } from 'react-native'
@@ -49,20 +50,20 @@ const ProfileMenu = (props) => {
 	const {token}= useSelector((s)=> s.Auth)	
 	const {data , messageEdit} = useSelector((s) => s.User)
 
-	console.log('ini data',data)
+	
 
 	const clearAllData = () => {		
 		dispatch(editUser({'device_token' : '-'}, token))
 		try{
 			dispatch(AuthLogout())
-			console.log('berhasil')
+			
 		}catch (error){
-			console.log('gagal')
+			console.log(error)
 		}
 	}	
 
-	console.log('ini cek berhasil atau tidak     ',messageEdit)
-	console.log('                         ini token bro', token)
+	
+	
 
 	const toPersonalInformation = () => {
 		props.navigation.navigate('PersonalInformation', {fullName : data.fullName, email : data.email , phoneNumber : data.phoneNumber} )
@@ -80,8 +81,7 @@ const ProfileMenu = (props) => {
 
 
 	const ImageLibrary = () => {
-        ImagePicker.showImagePicker({}, (response) => {
-            console.log(response)
+        ImagePicker.showImagePicker({}, (response) => {            
             const formData = new FormData()
             formData.append('images',{
                 uri: response.uri,
@@ -89,10 +89,12 @@ const ProfileMenu = (props) => {
                 type: response.type
             })           
             dispatch(editPhoto(formData, token))
-
-            console.log(data, 'ini error message edit')
-            console.log(' ini responsenya wkwokwokowkowkow',response.uri, response.fileName, response.type , 'ini responsenya wkwokwokowkowkow')
-            setAvatarSource(response.uri)
+            .then(res => {
+		        ToastAndroid.show(messageEdit, ToastAndroid.SHORT)
+            }).catch(err => 
+            	ToastAndroid.show(err, ToastAndroid.SHORT)
+            )
+            
             setEditPhoto(true)
         })
 	}

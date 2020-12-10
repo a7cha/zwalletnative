@@ -26,24 +26,54 @@ const RegisterForm = (props) => {
 	const [pincode, setPincode] = useState('');	
 	const [gotoPin, setGotoPin] = useState(false)
 	const [wrongData, setWrongData] = useState(false)
+	const [wrongUsername, setWrongUsername] = useState(false)
+	const [wrongEmail, setWrongEmail] = useState(false)
+	const [wrongPassword, setWrongPassword] = useState(false)
 	const [revealPassword, setRevealPassword] = useState(true)
 	const dispatch = useDispatch()
 
 	const createPin = () => {
 
-	if(username != '' && email != '' && password.length >= 8 ){
-		dispatch(AuthRegister({email : email, password : password, fullName : username}))
-		console.log('berhasil login')
-		setGotoPin(true)
-	}else {
-		ToastAndroid.show('All input must fillet', ToastAndroid.LONG)			
-	}
-		
-		
+		function validateEmail(email){
+		        var re = /\S+@\S+\.\S+/;
+		        return re.test(email);
+		}		
+
+		if(username != '' && validateEmail(email) && password.length >= 8 ){
+			dispatch(AuthRegister({email : email, password : password, fullName : username}))
+			console.log('berhasil login')
+			setGotoPin(true)
+		}
+
+		if(username != '' && !validateEmail(email) && password.length >= 8 ){	
+			ToastAndroid.show('Email is not email', ToastAndroid.SHORT)
+			setWrongEmail(true)
+		}
+
+		if(username != '' && !validateEmail(email) && password.length < 7 ){	
+			ToastAndroid.show('Password minimal 8 character', ToastAndroid.SHORT)
+			setWrongPassword(true)
+		}			
 	};
 
 
-	console.log(email , password , username)
+	const textEmail = (email) => {
+		setEmail(email)
+		setWrongEmail(false)
+	}
+
+	const textPassword = (password) => {
+		setPassword(password)
+		setWrongPassword(false)
+	}
+
+	const textUsername = (username) => {
+		setUsername(username)
+		setWrongUsername(false)
+	}
+
+
+	
 
 	const toPinStatus = () => {
 		if(pincode.length == 6){
@@ -53,7 +83,7 @@ const RegisterForm = (props) => {
 			}
 			axios.patch(`${REACT_APP_API}/auth/create_pin`,data)
 			.then(res => {
-				props.navigation.navigate('PinStatus');
+				props.navigation.push('PinStatus');
 			}).catch(err => {
 				console.log(err)
 			})
@@ -67,7 +97,7 @@ const RegisterForm = (props) => {
 
 
 	const toLogin = () => {
-		props.navigation.navigate('Login')
+		props.navigation.goBack('Login')
 	}
 
 	return(
@@ -88,11 +118,11 @@ const RegisterForm = (props) => {
 								</View>
 
 								<View style={styles.positionCenter}>
-									<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
+									<View style={username != '' ? wrongUsername ? styles.borderInputFilledWrong : styles.borderInputFilled : styles.borderInput}>
 
 										<View style={{flexDirection : 'row'}}>
 
-										<Icon name='user' size={30} color={username != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
+										<Icon name='user' size={30} color={username != '' ? wrongUsername ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																		
 										<TextInput 
 											style={styles.formInputEmail}
@@ -108,11 +138,11 @@ const RegisterForm = (props) => {
 								</View>						
 
 								<View style={styles.positionCenter}>
-									<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
+									<View style={email != '' ? wrongEmail ? styles.borderInputFilledWrong :  styles.borderInputFilled : styles.borderInput}>
 
 										<View style={{flexDirection : 'row'}}>
 
-										<Icon name='mail' size={30} color={email != '' ? wrongData ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
+										<Icon name='mail' size={30} color={email != '' ? wrongEmail ? '#FF5B37'  : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																		
 										<TextInput 
 											ref={inputEmail}
@@ -120,7 +150,7 @@ const RegisterForm = (props) => {
 											placeholder='Masukkan Email'
 											autoCapitalize={'none'}
 											value={email}
-											onChangeText={(text) => setEmail(text)}
+											onChangeText={(text) => textEmail(text)}
 											onSubmitEditing={() => inputPassword.current.focus()}
 											returnKeyType="next"
 										/>
@@ -130,9 +160,9 @@ const RegisterForm = (props) => {
 
 								<View style={styles.positionCenter}>
 									
-									<View style={password != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+									<View style={password != '' ? wrongPassword ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 										<View style={{flexDirection : 'row'}}>
-											<Icon name='lock' size={30} color={password != '' ? wrongData ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
+											<Icon name='lock' size={30} color={password != '' ? wrongPassword ? '#FF5B37'  : '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10}}/>
 											<TextInput 
 												ref={inputPassword}
 												style={styles.formInputPassword}
@@ -146,7 +176,7 @@ const RegisterForm = (props) => {
 												onSubmitEditing={() => createPin()}
 											/>
 											<TouchableNativeFeedback>
-											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10}} onPress={() => setRevealPassword(!revealPassword)}/>
+											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealPassword(!revealPassword)}/>
 											</TouchableNativeFeedback>
 										</View>
 									</View>
