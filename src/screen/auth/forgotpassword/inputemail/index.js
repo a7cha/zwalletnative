@@ -19,24 +19,61 @@ const FormForgotPassword = (props) => {
 	const [loading, setLoading] = useState(false);
 	const[resetPassword, setResetPassword] = useState(false)
 	const [revealPassword, setRevealPassword] = useState(true)
+	const [revealNewPassword, setRevealNewPassword] = useState(true)
+	const [wrongEmail, setWrongEmail] = useState(false)
+	const [wrongPassword, setWrongPassword] = useState(false)
 	const [newPassword, setNewPassword] = useState('')
 	const [repeatNewPassword, setRepeatNewPassword] = useState('')
 
+
 	const dispatch = useDispatch()
+	const {data} = useSelector(s => s.Auth)
 
 	const toResetPassword = () => {
 		setResetPassword(true)
 	};
 
+	const inputEmail = (text) => {
+		setEmail(text)
+		setWrongEmail(false)
+	}
+
+	const inputPassword = (password) => {
+		setRepeatNewPassword(password)
+		setWrongPassword(false)
+	}
+
 	const doResetPassword = () => {
 
-		dispatch(ResetPassword({email : email, password : newPassword}))
-		.then(res => {
-			props.navigation.navigate('Login')	
-		})
-		.catch(error => {
-			ToastAndroid.show('Email not found', ToastAndroid.SHORT)
-		})
+		if(newPassword === repeatNewPassword){
+			dispatch(ResetPassword({email : email, password : newPassword}))
+			.then(res => {
+				
+
+				if(data.message === 'Succes'){
+					ToastAndroid.show('Password Successfully changed', ToastAndroid.SHORT)					
+					props.navigation.goBack('Login')
+				}
+
+
+
+				if(data === 'Request failed with status code 403'){
+					ToastAndroid.show('Email not found', ToastAndroid.SHORT)	
+					setResetPassword(false)
+					setWrongEmail(true)
+				}
+
+				
+			})
+			.catch(error => {
+				ToastAndroid.show(error, ToastAndroid.SHORT)
+			})
+		} else {
+			ToastAndroid.show('Confirm Password and password not same', ToastAndroid.SHORT)		
+			setWrongPassword(true)			
+		}
+
+
 		
 	}
 
@@ -86,23 +123,23 @@ const FormForgotPassword = (props) => {
 
 								<View style={styles.positionCenterRepeat}>
 									
-									<View style={repeatNewPassword != '' ? styles.borderInputPasswordFilled : styles.borderInputPassword}>
+									<View style={repeatNewPassword != '' ? wrongPassword ? styles.borderInputPasswordFilledWrong : styles.borderInputPasswordFilled : styles.borderInputPassword}>
 										<View style={{flexDirection : 'row'}}>
-											<Icon name='lock' size={30} color={repeatNewPassword != '' ? '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10,}}/>
+											<Icon name='lock' size={30} color={repeatNewPassword != '' ? wrongPassword ? '#FF5B37'  :  '#6379F4' : 'rgba(169, 169, 169, 0.6)'} style={{top : 10,}}/>
 											<TextInput 
 												ref={inputNewPassword}
 												style={styles.formInputPassword}
 												placeholder='Confirm New Password'
 												autoCapitalize={'none'}
 												value={repeatNewPassword}
-												secureTextEntry={revealPassword}
+												secureTextEntry={revealNewPassword}
 												returnKeyType="send"
 												returnKeyLabel="masuk"
-												onChangeText={(text) => setRepeatNewPassword(text)}
+												onChangeText={(text) => inputPassword(text)}
 												onSubmitEditing={() => doResetPassword()}
 											/>
 											<TouchableNativeFeedback>
-											<Icon name={!revealPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealPassword(!revealPassword)}/>
+											<Icon name={!revealNewPassword ? 'eye-off' : 'eye'} size={30} color={'rgba(169, 169, 169, 0.6)'} style={{top : 10, right : 30}} onPress={() => setRevealNewPassword(!revealNewPassword)}/>
 											</TouchableNativeFeedback>
 										</View>
 									</View>
@@ -131,18 +168,18 @@ const FormForgotPassword = (props) => {
 
 
 								<View style={styles.positionCenter}>
-									<View style={email != '' ? styles.borderInputFilled : styles.borderInput}>
+									<View style={email != '' ? wrongEmail ? styles.borderInputFilledWrong  : styles.borderInputFilled : styles.borderInput}>
 
 										<View style={{flexDirection : 'row'}}>
 
-										<Icon name='mail' size={30} color={email != '' ? '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
+										<Icon name='mail' size={30} color={email != '' ? wrongEmail ?  '#FF5B37' : '#6379F4'  : 'rgba(169, 169, 169, 0.6)'} style={{top : 13}} />
 																		
 										<TextInput 
 											style={styles.formInputEmail}
 											placeholder='Masukkan Email'
 											autoCapitalize={'none'}
 											value={email}
-											onChangeText={(text) => setEmail(text)}
+											onChangeText={(text) => inputEmail(text)}
 											onSubmitEditing={() => toResetPassword()}
 											returnKeyType="next"
 										/>

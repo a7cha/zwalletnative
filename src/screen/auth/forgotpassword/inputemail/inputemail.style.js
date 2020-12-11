@@ -20,7 +20,7 @@ export default StyleSheet.create({
         alignItems : 'center'
     },
     positionCenterButtonEmail : {
-        marginTop : hp(5),
+        marginTop : hp(8),
         alignItems : 'center'
     },
     bodyBackground : {
@@ -188,9 +188,15 @@ export default StyleSheet.create({
     borderInputFilled : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
-        width : 365,
+        width : wp(90),
         borderBottomColor : '#6379F4',  
-    },    
+    },
+    borderInputFilledWrong : {
+        borderBottomWidth : wp(0.4),
+        height : hp(10), 
+        width : wp(90),
+        borderBottomColor : '#FF5B37',  
+    },        
     borderInputPassword : {
         borderBottomWidth : wp(0.4),
         height : hp(10), 
@@ -205,6 +211,13 @@ export default StyleSheet.create({
         borderBottomColor : '#6379F4',  
         marginTop: hp(2)
     },
+    borderInputPasswordFilledWrong : {
+        borderBottomWidth : wp(0.4),
+        height : hp(10), 
+        width : 365,
+        borderBottomColor : '#FF5B37',  
+        marginTop: hp(2)
+    },    
     formInputPassword : {
         borderWidth : 0,
         width : wp(76),        

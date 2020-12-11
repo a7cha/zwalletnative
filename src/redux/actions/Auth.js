@@ -125,7 +125,7 @@ export const ResetPassword = (data) => async dispatch => {
     dispatch(ResetPasswordRequest())
     try{
         const res = await Axios.patch(`${REACT_APP_API}/auth/reset_password`, data)
-        dispatch(ResetPasswordSuccess(res))
+        dispatch(ResetPasswordSuccess(res.data))
     }catch (error) {
         dispatch(ResetPasswordFailed(error.message))
     }

@@ -67,11 +67,7 @@ const UserDashboard = (props) => {
     		dispatch(getHistoryTransactionUser(token))    
     		dispatch(editUser({device_token : deviceToken}, token))    	    		
 		
-	    },[],
-			socket.emit('getId', data.id)    	,
-			setInterval(() => socket.on('get-data', inidata => {
-				setBalance(inidata)
-			}), 100)
+	    },[data.balance]
 	    )
 
 
@@ -134,7 +130,7 @@ const UserDashboard = (props) => {
 					{
 						dataAll == undefined ? <Text></Text> : dataAll.slice(0,3).map(history => {
 							return(
-								<View style={styles.dashboardPanelist}>
+								<View style={styles.dashboardPanelist} key={history.id}>
 									<View style={styles.spaceBetween}>
 										<View style={styles.profileStatus}>
 											{ history.img !== '-' ? 
