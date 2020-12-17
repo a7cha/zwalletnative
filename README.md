@@ -28,6 +28,6 @@ Download the projects:
 ~$ git clone https://github.com/a7cha/zwallet && yarn && yarn android && yarn start;
 ```
 
-### # LANDING PAGE
+
 ![alt text](https://github.com/a7cha/zwalletnative/blob/production/Untitled-1.png)
  
