@@ -29,5 +29,5 @@ Download the projects:
 ```
 
 ### # LANDING PAGE
-![alt text](https://github.com/a7cha/zwallet/blob/master/Landing-page.png "Logo Title Text 1")
+![alt text](https://github.com/a7cha/zwalletnative/blob/production/Untitled-1.png)
  
