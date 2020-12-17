@@ -24,7 +24,7 @@ This project built with Native.
 
 ### # HOW TO INSTALL
 Download the projects: 
-```
+```bash
 ~$ git clone https://github.com/a7cha/zwallet && yarn && yarn android && yarn start;
 ```
 
