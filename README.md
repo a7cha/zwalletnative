@@ -30,4 +30,11 @@ Download the projects:
 
 
 ![alt text](https://github.com/a7cha/zwalletnative/blob/production/Untitled-1.png)
- 
+## # TRANSACTION 
+
+
+ <img src="https://github.com/a7cha/zwalletnative/blob/production/search%20receiver.png">
+ <img src="https://github.com/a7cha/zwalletnative/blob/production/amoun.png">	
+<img src="https://github.com/a7cha/zwalletnative/blob/production/confirm.png">	
+ <img src="https://github.com/a7cha/zwalletnative/blob/production/pin.png">	
+<img src="https://github.com/a7cha/zwalletnative/blob/production/status.png">	
